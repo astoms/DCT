@@ -1,0 +1,16 @@
+G:\Mobile\DCT\DCT\obj\Release\ResolveAssemblyReference.cache
+G:\Mobile\DCT\DCT\obj\Release\DCT.Properties.Resources.resources
+G:\Mobile\DCT\DCT\obj\Release\DCT.StartForm.resources
+G:\Mobile\DCT\DCT\obj\Release\DCT.csproj.GenerateResource.Cache
+G:\Mobile\DCT\DCT\bin\Release\DCT.exe
+G:\Mobile\DCT\DCT\bin\Release\DCT.pdb
+G:\Mobile\DCT\DCT\obj\Release\DCT.exe
+G:\Mobile\DCT\DCT\obj\Release\DCT.pdb
+G:\Mobile\DCT\DCT\bin\Release\MCSSLibNet.dll
+G:\Mobile\DCT\DCT\bin\Release\System.Data.SqlClient.dll
+G:\Mobile\DCT\DCT\bin\Release\MCSSLib.dll
+G:\Mobile\DCT\DCT\bin\Release\M3CPSSLib.dll
+G:\Mobile\DCT\DCT\bin\Release\M3PSSLibNetCla.dll
+G:\Mobile\DCT\DCT\obj\Release\DCT.DataForm.resources
+G:\Mobile\DCT\DCT\obj\Release\DCT.docSpecEditViewDialog.resources
+G:\Mobile\DCT\DCT\obj\Release\DCT.docSpecSummaryViewDialog.resources
