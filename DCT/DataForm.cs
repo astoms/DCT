@@ -482,17 +482,19 @@ namespace DCT
 
         private void dgSpec_DoubleClick(object sender, EventArgs e)
         {
-            if (dgSpec[dgSpec.CurrentRowIndex, 0].ToString() != "")
+            try
             {
-                try
+                if (dgSpec[dgSpec.CurrentRowIndex, 0].ToString() != "")
                 {
-                    record_id = dgSpec[dgSpec.CurrentRowIndex, 0].ToString();
-                    Point P = new Point(Control.MousePosition.X, Control.MousePosition.Y - 20);
-                    MenuCont.Show(dgSpec, P);
+                    
+                        record_id = dgSpec[dgSpec.CurrentRowIndex, 0].ToString();
+                        Point P = new Point(Control.MousePosition.X, Control.MousePosition.Y - 20);
+                        MenuCont.Show(dgSpec, P);
+                    }
+                    
                 }
-                catch
-                { }
-            }
+            catch
+            { }
         }
 
         private void MenuCont_Popup(object sender, EventArgs e)

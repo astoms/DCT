@@ -71,17 +71,19 @@
             this.lbnames = new System.Windows.Forms.Label();
             this.lbarticle = new System.Windows.Forms.Label();
             this.pDoc = new System.Windows.Forms.TabPage();
+            this.send_btn = new System.Windows.Forms.Button();
+            this.who_get = new System.Windows.Forms.TextBox();
+            this.who_set = new System.Windows.Forms.TextBox();
+            this.lbprinal = new System.Windows.Forms.Label();
+            this.lbsdal = new System.Windows.Forms.Label();
             this.version = new System.Windows.Forms.Label();
             this.exit_btn = new System.Windows.Forms.Button();
             this.input_go = new Microsoft.WindowsCE.Forms.InputPanel(this.components);
             this.MenuCont = new System.Windows.Forms.ContextMenu();
             this.menuItem1 = new System.Windows.Forms.MenuItem();
             this.menuItem2 = new System.Windows.Forms.MenuItem();
-            this.lbsdal = new System.Windows.Forms.Label();
-            this.lbprinal = new System.Windows.Forms.Label();
-            this.who_set = new System.Windows.Forms.TextBox();
-            this.who_get = new System.Windows.Forms.TextBox();
-            this.send_btn = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.Page.SuspendLayout();
             this.pBarcode.SuspendLayout();
             this.pGetting.SuspendLayout();
@@ -141,6 +143,8 @@
             // pGetting
             // 
             this.pGetting.BackColor = System.Drawing.Color.Bisque;
+            this.pGetting.Controls.Add(this.textBox1);
+            this.pGetting.Controls.Add(this.label4);
             this.pGetting.Controls.Add(this.lbPlace);
             this.pGetting.Controls.Add(this.pbPlace);
             this.pGetting.Controls.Add(this.txPrice);
@@ -159,14 +163,14 @@
             this.pGetting.Controls.Add(this.label1);
             this.pGetting.Location = new System.Drawing.Point(0, 0);
             this.pGetting.Name = "pGetting";
-            this.pGetting.Size = new System.Drawing.Size(232, 264);
+            this.pGetting.Size = new System.Drawing.Size(240, 267);
             this.pGetting.Text = "Прием";
             this.pGetting.Click += new System.EventHandler(this.pGetting_Click);
             // 
             // lbPlace
             // 
             this.lbPlace.BackColor = System.Drawing.Color.Bisque;
-            this.lbPlace.Location = new System.Drawing.Point(138, 133);
+            this.lbPlace.Location = new System.Drawing.Point(126, 125);
             this.lbPlace.Name = "lbPlace";
             this.lbPlace.Size = new System.Drawing.Size(82, 72);
             this.lbPlace.TabIndex = 72;
@@ -176,7 +180,7 @@
             // pbPlace
             // 
             this.pbPlace.Image = ((System.Drawing.Image)(resources.GetObject("pbPlace.Image")));
-            this.pbPlace.Location = new System.Drawing.Point(196, 112);
+            this.pbPlace.Location = new System.Drawing.Point(184, 101);
             this.pbPlace.Name = "pbPlace";
             this.pbPlace.Size = new System.Drawing.Size(22, 22);
             this.pbPlace.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -187,7 +191,7 @@
             this.txPrice.BackColor = System.Drawing.Color.Bisque;
             this.txPrice.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
             this.txPrice.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.txPrice.Location = new System.Drawing.Point(104, 200);
+            this.txPrice.Location = new System.Drawing.Point(92, 190);
             this.txPrice.Name = "txPrice";
             this.txPrice.ReadOnly = true;
             this.txPrice.Size = new System.Drawing.Size(116, 24);
@@ -199,7 +203,7 @@
             this.txNumb.BackColor = System.Drawing.Color.Bisque;
             this.txNumb.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
             this.txNumb.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.txNumb.Location = new System.Drawing.Point(104, 171);
+            this.txNumb.Location = new System.Drawing.Point(92, 160);
             this.txNumb.Name = "txNumb";
             this.txNumb.ReadOnly = true;
             this.txNumb.Size = new System.Drawing.Size(116, 24);
@@ -224,7 +228,7 @@
             this.txCount.BackColor = System.Drawing.Color.Bisque;
             this.txCount.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
             this.txCount.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.txCount.Location = new System.Drawing.Point(104, 141);
+            this.txCount.Location = new System.Drawing.Point(92, 130);
             this.txCount.MaxLength = 5;
             this.txCount.Name = "txCount";
             this.txCount.Size = new System.Drawing.Size(116, 24);
@@ -237,7 +241,7 @@
             this.txPlace.BackColor = System.Drawing.Color.Bisque;
             this.txPlace.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
             this.txPlace.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.txPlace.Location = new System.Drawing.Point(104, 111);
+            this.txPlace.Location = new System.Drawing.Point(92, 100);
             this.txPlace.Name = "txPlace";
             this.txPlace.Size = new System.Drawing.Size(116, 24);
             this.txPlace.TabIndex = 66;
@@ -247,9 +251,9 @@
             // 
             this.txName.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
             this.txName.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.txName.Location = new System.Drawing.Point(19, 54);
+            this.txName.Location = new System.Drawing.Point(7, 51);
             this.txName.Name = "txName";
-            this.txName.Size = new System.Drawing.Size(201, 54);
+            this.txName.Size = new System.Drawing.Size(201, 46);
             this.txName.TextChanged += new System.EventHandler(this.txName_TextChanged);
             this.txName.ParentChanged += new System.EventHandler(this.label4_ParentChanged);
             // 
@@ -259,17 +263,17 @@
             this.txArticle.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txArticle.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
             this.txArticle.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.txArticle.Location = new System.Drawing.Point(104, 7);
+            this.txArticle.Location = new System.Drawing.Point(82, 7);
             this.txArticle.Name = "txArticle";
             this.txArticle.ReadOnly = true;
-            this.txArticle.Size = new System.Drawing.Size(116, 24);
+            this.txArticle.Size = new System.Drawing.Size(126, 24);
             this.txArticle.TabIndex = 64;
             this.txArticle.GotFocus += new System.EventHandler(this.txArticle_GotFocus);
             // 
             // lblPrice
             // 
             this.lblPrice.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
-            this.lblPrice.Location = new System.Drawing.Point(19, 200);
+            this.lblPrice.Location = new System.Drawing.Point(7, 190);
             this.lblPrice.Name = "lblPrice";
             this.lblPrice.Size = new System.Drawing.Size(79, 19);
             this.lblPrice.Text = "Цена:";
@@ -277,17 +281,17 @@
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
-            this.label2.Location = new System.Drawing.Point(19, 111);
+            this.label2.Location = new System.Drawing.Point(7, 100);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(79, 19);
+            this.label2.Size = new System.Drawing.Size(74, 19);
             this.label2.Text = "Место:";
             this.label2.ParentChanged += new System.EventHandler(this.label2_ParentChanged);
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(17, 235);
+            this.buttonAdd.Location = new System.Drawing.Point(7, 247);
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(203, 24);
+            this.buttonAdd.Size = new System.Drawing.Size(201, 17);
             this.buttonAdd.TabIndex = 50;
             this.buttonAdd.Text = "Принять";
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click_1);
@@ -295,23 +299,23 @@
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
-            this.label6.Location = new System.Drawing.Point(19, 171);
+            this.label6.Location = new System.Drawing.Point(7, 160);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(84, 20);
+            this.label6.Size = new System.Drawing.Size(89, 20);
             this.label6.Text = "На складе:";
             // 
             // label5
             // 
             this.label5.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
-            this.label5.Location = new System.Drawing.Point(19, 141);
+            this.label5.Location = new System.Drawing.Point(7, 130);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(84, 21);
+            this.label5.Size = new System.Drawing.Size(74, 21);
             this.label5.Text = "Кол-во:";
             // 
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
-            this.label3.Location = new System.Drawing.Point(19, 35);
+            this.label3.Location = new System.Drawing.Point(7, 34);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(201, 19);
             this.label3.Text = "Наименование товара:";
@@ -319,7 +323,7 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
-            this.label1.Location = new System.Drawing.Point(19, 7);
+            this.label1.Location = new System.Drawing.Point(7, 7);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(84, 20);
             this.label1.Text = "Артикул:";
@@ -375,7 +379,7 @@
             this.pProof.Controls.Add(this.lbarticle);
             this.pProof.Location = new System.Drawing.Point(0, 0);
             this.pProof.Name = "pProof";
-            this.pProof.Size = new System.Drawing.Size(240, 267);
+            this.pProof.Size = new System.Drawing.Size(232, 264);
             this.pProof.Text = "Проверка цен";
             // 
             // check_summ
@@ -538,9 +542,52 @@
             this.pDoc.Controls.Add(this.exit_btn);
             this.pDoc.Location = new System.Drawing.Point(0, 0);
             this.pDoc.Name = "pDoc";
-            this.pDoc.Size = new System.Drawing.Size(240, 267);
+            this.pDoc.Size = new System.Drawing.Size(232, 264);
             this.pDoc.Text = "Документ";
             this.pDoc.DoubleClick += new System.EventHandler(this.pDoc_DoubleClick);
+            // 
+            // send_btn
+            // 
+            this.send_btn.Location = new System.Drawing.Point(7, 134);
+            this.send_btn.Name = "send_btn";
+            this.send_btn.Size = new System.Drawing.Size(215, 20);
+            this.send_btn.TabIndex = 6;
+            this.send_btn.Text = "передать на сервер";
+            // 
+            // who_get
+            // 
+            this.who_get.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
+            this.who_get.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.who_get.Location = new System.Drawing.Point(7, 94);
+            this.who_get.Name = "who_get";
+            this.who_get.Size = new System.Drawing.Size(215, 24);
+            this.who_get.TabIndex = 5;
+            // 
+            // who_set
+            // 
+            this.who_set.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
+            this.who_set.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.who_set.Location = new System.Drawing.Point(7, 47);
+            this.who_set.Name = "who_set";
+            this.who_set.ReadOnly = true;
+            this.who_set.Size = new System.Drawing.Size(215, 24);
+            this.who_set.TabIndex = 4;
+            // 
+            // lbprinal
+            // 
+            this.lbprinal.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
+            this.lbprinal.Location = new System.Drawing.Point(7, 71);
+            this.lbprinal.Name = "lbprinal";
+            this.lbprinal.Size = new System.Drawing.Size(100, 20);
+            this.lbprinal.Text = "принял:";
+            // 
+            // lbsdal
+            // 
+            this.lbsdal.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
+            this.lbsdal.Location = new System.Drawing.Point(7, 24);
+            this.lbsdal.Name = "lbsdal";
+            this.lbsdal.Size = new System.Drawing.Size(100, 20);
+            this.lbsdal.Text = "сдал:";
             // 
             // version
             // 
@@ -575,48 +622,24 @@
             this.menuItem2.Text = "удалить";
             this.menuItem2.Click += new System.EventHandler(this.menuItem2_Click);
             // 
-            // lbsdal
+            // label4
             // 
-            this.lbsdal.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
-            this.lbsdal.Location = new System.Drawing.Point(7, 24);
-            this.lbsdal.Name = "lbsdal";
-            this.lbsdal.Size = new System.Drawing.Size(100, 20);
-            this.lbsdal.Text = "сдал:";
+            this.label4.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
+            this.label4.Location = new System.Drawing.Point(7, 220);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(84, 19);
+            this.label4.Text = "Номер п/п:";
             // 
-            // lbprinal
+            // textBox1
             // 
-            this.lbprinal.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
-            this.lbprinal.Location = new System.Drawing.Point(7, 71);
-            this.lbprinal.Name = "lbprinal";
-            this.lbprinal.Size = new System.Drawing.Size(100, 20);
-            this.lbprinal.Text = "принял:";
-            // 
-            // who_set
-            // 
-            this.who_set.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
-            this.who_set.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.who_set.Location = new System.Drawing.Point(7, 47);
-            this.who_set.Name = "who_set";
-            this.who_set.ReadOnly = true;
-            this.who_set.Size = new System.Drawing.Size(215, 24);
-            this.who_set.TabIndex = 4;
-            // 
-            // who_get
-            // 
-            this.who_get.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
-            this.who_get.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.who_get.Location = new System.Drawing.Point(7, 94);
-            this.who_get.Name = "who_get";
-            this.who_get.Size = new System.Drawing.Size(215, 24);
-            this.who_get.TabIndex = 5;
-            // 
-            // send_btn
-            // 
-            this.send_btn.Location = new System.Drawing.Point(7, 134);
-            this.send_btn.Name = "send_btn";
-            this.send_btn.Size = new System.Drawing.Size(215, 20);
-            this.send_btn.TabIndex = 6;
-            this.send_btn.Text = "передать на сервер";
+            this.textBox1.BackColor = System.Drawing.Color.Bisque;
+            this.textBox1.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
+            this.textBox1.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.textBox1.Location = new System.Drawing.Point(92, 220);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(116, 24);
+            this.textBox1.TabIndex = 83;
             // 
             // DataForm
             // 
@@ -697,5 +720,7 @@
         private System.Windows.Forms.TextBox who_set;
         private System.Windows.Forms.Label lbprinal;
         private System.Windows.Forms.Button send_btn;
+        public System.Windows.Forms.Label label4;
+        public System.Windows.Forms.TextBox textBox1;
     }
 }
