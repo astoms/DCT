@@ -35,6 +35,8 @@
             this.tBarcode = new System.Windows.Forms.TextBox();
             this.Img_Src = new System.Windows.Forms.PictureBox();
             this.pGetting = new System.Windows.Forms.TabPage();
+            this.numb = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.lbPlace = new System.Windows.Forms.ListBox();
             this.pbPlace = new System.Windows.Forms.PictureBox();
             this.txPrice = new System.Windows.Forms.TextBox();
@@ -82,8 +84,6 @@
             this.MenuCont = new System.Windows.Forms.ContextMenu();
             this.menuItem1 = new System.Windows.Forms.MenuItem();
             this.menuItem2 = new System.Windows.Forms.MenuItem();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.Page.SuspendLayout();
             this.pBarcode.SuspendLayout();
             this.pGetting.SuspendLayout();
@@ -143,7 +143,7 @@
             // pGetting
             // 
             this.pGetting.BackColor = System.Drawing.Color.Bisque;
-            this.pGetting.Controls.Add(this.textBox1);
+            this.pGetting.Controls.Add(this.numb);
             this.pGetting.Controls.Add(this.label4);
             this.pGetting.Controls.Add(this.lbPlace);
             this.pGetting.Controls.Add(this.pbPlace);
@@ -167,10 +167,28 @@
             this.pGetting.Text = "Прием";
             this.pGetting.Click += new System.EventHandler(this.pGetting_Click);
             // 
+            // numb
+            // 
+            this.numb.BackColor = System.Drawing.Color.Bisque;
+            this.numb.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
+            this.numb.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.numb.Location = new System.Drawing.Point(92, 220);
+            this.numb.Name = "numb";
+            this.numb.Size = new System.Drawing.Size(116, 24);
+            this.numb.TabIndex = 83;
+            // 
+            // label4
+            // 
+            this.label4.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
+            this.label4.Location = new System.Drawing.Point(7, 220);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(84, 19);
+            this.label4.Text = "Номер п/п:";
+            // 
             // lbPlace
             // 
             this.lbPlace.BackColor = System.Drawing.Color.Bisque;
-            this.lbPlace.Location = new System.Drawing.Point(126, 125);
+            this.lbPlace.Location = new System.Drawing.Point(126, 124);
             this.lbPlace.Name = "lbPlace";
             this.lbPlace.Size = new System.Drawing.Size(82, 72);
             this.lbPlace.TabIndex = 72;
@@ -214,12 +232,11 @@
             // 
             this.txMesname.BackColor = System.Drawing.Color.Bisque;
             this.txMesname.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txMesname.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular);
             this.txMesname.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.txMesname.Location = new System.Drawing.Point(146, 143);
+            this.txMesname.Location = new System.Drawing.Point(160, 131);
             this.txMesname.Name = "txMesname";
             this.txMesname.ReadOnly = true;
-            this.txMesname.Size = new System.Drawing.Size(70, 23);
+            this.txMesname.Size = new System.Drawing.Size(45, 21);
             this.txMesname.TabIndex = 68;
             this.txMesname.GotFocus += new System.EventHandler(this.txMesname_GotFocus);
             // 
@@ -379,7 +396,7 @@
             this.pProof.Controls.Add(this.lbarticle);
             this.pProof.Location = new System.Drawing.Point(0, 0);
             this.pProof.Name = "pProof";
-            this.pProof.Size = new System.Drawing.Size(232, 264);
+            this.pProof.Size = new System.Drawing.Size(240, 267);
             this.pProof.Text = "Проверка цен";
             // 
             // check_summ
@@ -542,7 +559,7 @@
             this.pDoc.Controls.Add(this.exit_btn);
             this.pDoc.Location = new System.Drawing.Point(0, 0);
             this.pDoc.Name = "pDoc";
-            this.pDoc.Size = new System.Drawing.Size(232, 264);
+            this.pDoc.Size = new System.Drawing.Size(240, 267);
             this.pDoc.Text = "Документ";
             this.pDoc.DoubleClick += new System.EventHandler(this.pDoc_DoubleClick);
             // 
@@ -621,25 +638,6 @@
             // 
             this.menuItem2.Text = "удалить";
             this.menuItem2.Click += new System.EventHandler(this.menuItem2_Click);
-            // 
-            // label4
-            // 
-            this.label4.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
-            this.label4.Location = new System.Drawing.Point(7, 220);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(84, 19);
-            this.label4.Text = "Номер п/п:";
-            // 
-            // textBox1
-            // 
-            this.textBox1.BackColor = System.Drawing.Color.Bisque;
-            this.textBox1.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
-            this.textBox1.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.textBox1.Location = new System.Drawing.Point(92, 220);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(116, 24);
-            this.textBox1.TabIndex = 83;
             // 
             // DataForm
             // 
@@ -721,6 +719,6 @@
         private System.Windows.Forms.Label lbprinal;
         private System.Windows.Forms.Button send_btn;
         public System.Windows.Forms.Label label4;
-        public System.Windows.Forms.TextBox textBox1;
+        public System.Windows.Forms.TextBox numb;
     }
 }

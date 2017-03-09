@@ -17,6 +17,8 @@ namespace DCT
         public bool editable = false;
         public string editable_id = "";
 
+        private bool dc = false;
+
         public StartForm _StartForm;
 
         public string doc_id;
@@ -39,93 +41,213 @@ namespace DCT
             }
             if (Page.SelectedIndex == 2)
             {
-                SqlCeConnection conn = null;
-                try
-                {
-                    conn = new SqlCeConnection("Data Source = " + System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\yyy.sdf; Persist Security Info=False");
-                    conn.Open();
+                GetSpec();
+            }
+        }
 
-                    DataTable t = new DataTable();
-                    using (SqlCeDataAdapter a = new SqlCeDataAdapter("SELECT id, id_doc, name, count_e, barcode, article, place, price FROM docSpec where id_doc=\'"+doc_id+"\'", conn))
+        private void GetSpec(string Column, bool desc)
+        {
+            SqlCeConnection conn = null;
+            try
+            {
+                conn = new SqlCeConnection("Data Source = " + System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\yyy.sdf; Persist Security Info=False");
+                conn.Open();
+
+                DataTable t = new DataTable();
+                string query = "";
+                if (desc)
+                {
+                    query = "SELECT id, id_doc, numb, name, count_e, barcode, article, place, price FROM docSpec where id_doc=\'" + doc_id + "\' order by " + Column + " desc";
+                }
+                else
+                {
+                    query = "SELECT id, id_doc, numb, name, count_e, barcode, article, place, price FROM docSpec where id_doc=\'" + doc_id + "\' order by " + Column;
+                }
+                
+                using (SqlCeDataAdapter a = new SqlCeDataAdapter(query, conn))
+                {
+                    a.Fill(t);
+                    dgSpec.DataSource = t;
+                }
+
+                dgSpec.TableStyles.Clear();
+                DataGridTableStyle tableStyle = new DataGridTableStyle();
+                tableStyle.MappingName = t.TableName;
+                foreach (DataColumn item in t.Columns)
+                {
+                    DataGridTextBoxColumn tbcName = new DataGridTextBoxColumn();
+                    switch (item.ColumnName.ToLower())
                     {
-                        a.Fill(t);
-                        dgSpec.DataSource = t;
+                        case "id":
+                            {
+                                tbcName.Width = -1;
+                                tbcName.MappingName = item.ColumnName;
+                                tbcName.HeaderText = item.ColumnName;
+                                break;
+                            }
+                        case "id_doc":
+                            {
+                                tbcName.Width = -1;
+                                tbcName.MappingName = item.ColumnName;
+                                tbcName.HeaderText = item.ColumnName;
+                                break;
+                            }
+                        case "numb":
+                            {
+                                tbcName.Width = 20;
+                                tbcName.MappingName = item.ColumnName;
+                                tbcName.HeaderText = "№";
+                                break;
+                            }
+                        case "name":
+                            {
+                                tbcName.Width = 120;
+                                tbcName.MappingName = item.ColumnName;
+                                tbcName.HeaderText = "наименование";
+                                break;
+                            }
+                        case "count_e":
+                            {
+                                tbcName.Width = 50;
+                                tbcName.MappingName = item.ColumnName;
+                                tbcName.HeaderText = "кол-во";
+                                break;
+                            }
+                        case "barcode":
+                            {
+                                tbcName.Width = 50;
+                                tbcName.MappingName = item.ColumnName;
+                                tbcName.HeaderText = "штрих-код";
+                                break;
+                            }
+                        case "article":
+                            {
+                                tbcName.Width = 50;
+                                tbcName.MappingName = item.ColumnName;
+                                tbcName.HeaderText = "артикул";
+                                break;
+                            }
+                        case "place":
+                            {
+                                tbcName.Width = 50;
+                                tbcName.MappingName = item.ColumnName;
+                                tbcName.HeaderText = "место";
+                                break;
+                            }
+                        case "price":
+                            {
+                                tbcName.Width = 50;
+                                tbcName.MappingName = item.ColumnName;
+                                tbcName.HeaderText = "цена";
+                                break;
+                            }
                     }
 
-                    dgSpec.TableStyles.Clear();
-                    DataGridTableStyle tableStyle = new DataGridTableStyle();
-                    tableStyle.MappingName = t.TableName;
-                    foreach (DataColumn item in t.Columns)
-                    {
-                        DataGridTextBoxColumn tbcName = new DataGridTextBoxColumn();
-                        switch (item.ColumnName.ToLower())
-                        {
-                            case "id":
-                                {
-                                    tbcName.Width = -1;
-                                    tbcName.MappingName = item.ColumnName;
-                                    tbcName.HeaderText = item.ColumnName;
-                                    break;
-                                }
-                            case "id_doc":
-                                {
-                                    tbcName.Width = -1;
-                                    tbcName.MappingName = item.ColumnName;
-                                    tbcName.HeaderText = item.ColumnName;
-                                    break;
-                                }
-                            case "name":
-                                {
-                                    tbcName.Width = 120;
-                                    tbcName.MappingName = item.ColumnName;
-                                    tbcName.HeaderText = "наименование";
-                                    break;
-                                }
-                            case "count_e":
-                                {
-                                    tbcName.Width = 50;
-                                    tbcName.MappingName = item.ColumnName;
-                                    tbcName.HeaderText = "кол-во";
-                                    break;
-                                }
-                            case "barcode":
-                                {
-                                    tbcName.Width = 50;
-                                    tbcName.MappingName = item.ColumnName;
-                                    tbcName.HeaderText = "штрих-код";
-                                    break;
-                                }
-                            case "article":
-                                {
-                                    tbcName.Width = 50;
-                                    tbcName.MappingName = item.ColumnName;
-                                    tbcName.HeaderText = "артикул";
-                                    break;
-                                }
-                            case "place":
-                                {
-                                    tbcName.Width = 50;
-                                    tbcName.MappingName = item.ColumnName;
-                                    tbcName.HeaderText = "место";
-                                    break;
-                                }
-                            case "price":
-                                {
-                                    tbcName.Width = 50;
-                                    tbcName.MappingName = item.ColumnName;
-                                    tbcName.HeaderText = "цена";
-                                    break;
-                                }
-                        }
-                        
-                        tableStyle.GridColumnStyles.Add(tbcName);
-                    }
-                    dgSpec.TableStyles.Add(tableStyle);
+                    tableStyle.GridColumnStyles.Add(tbcName);
                 }
-                finally
+                dgSpec.TableStyles.Add(tableStyle);
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
+        private void GetSpec()
+        {
+            SqlCeConnection conn = null;
+            try
+            {
+                conn = new SqlCeConnection("Data Source = " + System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\yyy.sdf; Persist Security Info=False");
+                conn.Open();
+
+                DataTable t = new DataTable();
+                using (SqlCeDataAdapter a = new SqlCeDataAdapter("SELECT id, id_doc, numb, name, count_e, barcode, article, place, price FROM docSpec where id_doc=\'" + doc_id + "\'", conn))
                 {
-                    conn.Close();
+                    a.Fill(t);
+                    dgSpec.DataSource = t;
                 }
+
+                dgSpec.TableStyles.Clear();
+                DataGridTableStyle tableStyle = new DataGridTableStyle();
+                tableStyle.MappingName = t.TableName;
+                foreach (DataColumn item in t.Columns)
+                {
+                    DataGridTextBoxColumn tbcName = new DataGridTextBoxColumn();
+                    switch (item.ColumnName.ToLower())
+                    {
+                        case "id":
+                            {
+                                tbcName.Width = -1;
+                                tbcName.MappingName = item.ColumnName;
+                                tbcName.HeaderText = item.ColumnName;
+                                break;
+                            }
+                        case "id_doc":
+                            {
+                                tbcName.Width = -1;
+                                tbcName.MappingName = item.ColumnName;
+                                tbcName.HeaderText = item.ColumnName;
+                                break;
+                            }
+                        case "numb":
+                            {
+                                tbcName.Width = 20;
+                                tbcName.MappingName = item.ColumnName;
+                                tbcName.HeaderText = "№";
+                                break;
+                            }
+                        case "name":
+                            {
+                                tbcName.Width = 120;
+                                tbcName.MappingName = item.ColumnName;
+                                tbcName.HeaderText = "наименование";
+                                break;
+                            }
+                        case "count_e":
+                            {
+                                tbcName.Width = 50;
+                                tbcName.MappingName = item.ColumnName;
+                                tbcName.HeaderText = "кол-во";
+                                break;
+                            }
+                        case "barcode":
+                            {
+                                tbcName.Width = 50;
+                                tbcName.MappingName = item.ColumnName;
+                                tbcName.HeaderText = "штрих-код";
+                                break;
+                            }
+                        case "article":
+                            {
+                                tbcName.Width = 50;
+                                tbcName.MappingName = item.ColumnName;
+                                tbcName.HeaderText = "артикул";
+                                break;
+                            }
+                        case "place":
+                            {
+                                tbcName.Width = 50;
+                                tbcName.MappingName = item.ColumnName;
+                                tbcName.HeaderText = "место";
+                                break;
+                            }
+                        case "price":
+                            {
+                                tbcName.Width = 50;
+                                tbcName.MappingName = item.ColumnName;
+                                tbcName.HeaderText = "цена";
+                                break;
+                            }
+                    }
+
+                    tableStyle.GridColumnStyles.Add(tbcName);
+                }
+                dgSpec.TableStyles.Add(tableStyle);
+            }
+            finally
+            {
+                conn.Close();
             }
         }
 
@@ -255,16 +377,48 @@ namespace DCT
                         editable = false;
                         editable_id = "";
                     }
-                    SqlCeConnection conn2 = null;
-                    conn2 = new SqlCeConnection("Data Source = " + System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\yyy.sdf; Persist Security Info=False");
-                    conn2.Open();
-                    SqlCeCommand cmd2 = conn2.CreateCommand();
+                    bool finder = false;
 
-                    cmd2.CommandText = "INSERT INTO docSpec(id_doc, name, count_e, barcode, article, place, price) values(\'" + doc_id + "\', \'" + txName.Text + "\', \'" + txCount.Text + "\', \'" + tBarcode.Text + "\', \'" + txArticle.Text + "\', \'" + txPlace.Text + "\', \'" + txPrice.Text + "\')";
+                    SqlCeConnection conn3 = null;
+                    conn3 = new SqlCeConnection("Data Source = " + System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\yyy.sdf; Persist Security Info=False");
+                    conn3.Open();
+                    SqlCeCommand cmd3 = conn3.CreateCommand();
 
-                    cmd2.ExecuteNonQuery();
+                    cmd3.CommandText = "SELECT * FROM docSpec where article=\'" + txArticle.Text + "\' and id_doc =\'" + doc_id + "\'";
+                    
+                    SqlCeDataReader myReader = null;
+                    myReader = cmd3.ExecuteReader();
 
-                    conn2.Close();
+                    if (myReader.HasRows)
+                    {
+                        int count_e = myReader.GetInt32(4) + Convert.ToInt32(txCount.Text);
+                        SqlCeConnection conn2 = null;
+                        conn2 = new SqlCeConnection("Data Source = " + System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\yyy.sdf; Persist Security Info=False");
+                        conn2.Open();
+                        SqlCeCommand cmd2 = conn2.CreateCommand();
+
+                        cmd2.CommandText = "UPDATE docSpec set `count_e` = "+count_e.ToString()+" where id_doc = \'" + doc_id + "\' and article =\'" + txArticle.Text + "\' ";
+
+                        cmd2.ExecuteNonQuery();
+
+                        conn2.Close();
+                    }
+                    else
+                    {
+                        SqlCeConnection conn2 = null;
+                        conn2 = new SqlCeConnection("Data Source = " + System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\yyy.sdf; Persist Security Info=False");
+                        conn2.Open();
+                        SqlCeCommand cmd2 = conn2.CreateCommand();
+
+                        cmd2.CommandText = "INSERT INTO docSpec(id_doc, numb, name, count_e, barcode, article, place, price) values(\'" + doc_id + "\', \'" + numb.Text + "\', \'" + txName.Text + "\', \'" + txCount.Text + "\', \'" + tBarcode.Text + "\', \'" + txArticle.Text + "\', \'" + txPlace.Text + "\', \'" + txPrice.Text + "\')";
+
+                        cmd2.ExecuteNonQuery();
+
+                        conn2.Close();
+                    }
+                    conn3.Close();
+
+                    
                     System.Media.SystemSounds.Hand.Play();
                 }
                 catch
@@ -279,6 +433,7 @@ namespace DCT
                 txMesname.Text = "";
                 txNumb.Text = "";
                 txPrice.Text = "";
+                numb.Text = "";
             }
             /*
             else
@@ -482,17 +637,73 @@ namespace DCT
 
         private void dgSpec_DoubleClick(object sender, EventArgs e)
         {
+            DataGrid.HitTestInfo hit = dgSpec.HitTest(Control.MousePosition.X, Control.MousePosition.Y);
             try
             {
-                if (dgSpec[dgSpec.CurrentRowIndex, 0].ToString() != "")
+                if (hit.Row != 0 && hit.Row != -1)
                 {
                     
-                        record_id = dgSpec[dgSpec.CurrentRowIndex, 0].ToString();
-                        Point P = new Point(Control.MousePosition.X, Control.MousePosition.Y - 20);
-                        MenuCont.Show(dgSpec, P);
-                    }
-                    
+                    record_id = dgSpec[dgSpec.CurrentRowIndex, 0].ToString();
+                    Point P = new Point(Control.MousePosition.X, Control.MousePosition.Y - 20);
+                    MenuCont.Show(dgSpec, P);
+
                 }
+                else
+                {
+                    if (hit.Row == 0)
+                    {
+                        if (dc)
+                        {
+                            dc = false;
+                        }
+                        else
+                        {
+                            dc = true;
+                        }
+                        switch (hit.Column)
+                        {
+                            case 2:
+                            {
+                                GetSpec("numb", dc);
+                                break;
+                            }
+                            case 3:
+                            {
+                                GetSpec("name", dc);
+                                break;
+                            }
+                            case 4:
+                            {
+                                GetSpec("count_e", dc);
+                                break;
+                            }
+                            case 5:
+                            {
+                                GetSpec("barcode", dc);
+                                break;
+                            }
+                            case 6:
+                            {
+                                GetSpec("article", dc);
+                                break;
+                            }
+                            case 7:
+                            {
+                                GetSpec("place", dc);
+                                break;
+                            }
+                            case 8:
+                            {
+                                GetSpec("price", dc);
+                                break;
+                            }
+
+                            default: break;
+                        }
+                        
+                    }
+                }
+            }
             catch
             { }
         }
