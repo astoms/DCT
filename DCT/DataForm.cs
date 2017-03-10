@@ -18,6 +18,7 @@ namespace DCT
         public string editable_id = "";
 
         private bool dc = false;
+        private string place = "";
 
         public StartForm _StartForm;
 
@@ -359,6 +360,7 @@ namespace DCT
         {
             input_go.Enabled = false;
             lbPlace.Visible = false;
+            
             if (txArticle.Text != "")
             {
                 try
@@ -377,8 +379,7 @@ namespace DCT
                         editable = false;
                         editable_id = "";
                     }
-                    bool finder = false;
-
+                    
                     SqlCeConnection conn3 = null;
                     conn3 = new SqlCeConnection("Data Source = " + System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\yyy.sdf; Persist Security Info=False");
                     conn3.Open();
@@ -389,15 +390,73 @@ namespace DCT
                     SqlCeDataReader myReader = null;
                     myReader = cmd3.ExecuteReader();
 
-                    if (myReader.HasRows)
+                    int count_e = 0;
+
+                    bool ext = false;
+
+                    place = "";
+
+                    while (myReader.Read())
                     {
-                        int count_e = myReader.GetInt32(4) + Convert.ToInt32(txCount.Text);
+                        ext = true;
+                        try
+                        {
+                            count_e += Convert.ToInt32(myReader["count_e"].ToString());
+                            place += myReader["place"].ToString();
+                        }
+                        catch
+                        {
+                        }
+                    }
+
+                    place += txPlace.Text + ';';
+
+                    try
+                    {
+                        List<string> PL = new List<string>(); 
+                        string[] pl = place.Split(';');
+                        int j = 0;
+                        while (j < pl.Length)
+                        {
+                            bool adv = false;
+                            foreach (string value in PL)
+                            {
+                                if (value == pl[j])
+                                {
+                                    adv = true;
+                                    break;
+                                }
+                            }
+
+                            if (adv == false) PL.Add(pl[j]); // 
+                            j++;
+                        }
+
+                        place = "";
+
+                        foreach (string value in PL)
+                        {
+                            if (value != "" && value != null) place += value + ';';
+                        }
+
+                    }
+                    catch
+                    {
+                    }
+
+                    conn3.Close();
+
+
+                    if (ext)
+                    {
+                        if (txCount.Text == "") txCount.Text = "0";
+                        count_e += Convert.ToInt32(txCount.Text);
                         SqlCeConnection conn2 = null;
                         conn2 = new SqlCeConnection("Data Source = " + System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\yyy.sdf; Persist Security Info=False");
                         conn2.Open();
                         SqlCeCommand cmd2 = conn2.CreateCommand();
 
-                        cmd2.CommandText = "UPDATE docSpec set `count_e` = "+count_e.ToString()+" where id_doc = \'" + doc_id + "\' and article =\'" + txArticle.Text + "\' ";
+                        cmd2.CommandText = "UPDATE docSpec set count_e = "+count_e.ToString()+", place = \'"+place.ToUpper()+"\' where id_doc = \'" + doc_id + "\' and article =\'" + txArticle.Text + "\' ";
 
                         cmd2.ExecuteNonQuery();
 
@@ -410,19 +469,21 @@ namespace DCT
                         conn2.Open();
                         SqlCeCommand cmd2 = conn2.CreateCommand();
 
-                        cmd2.CommandText = "INSERT INTO docSpec(id_doc, numb, name, count_e, barcode, article, place, price) values(\'" + doc_id + "\', \'" + numb.Text + "\', \'" + txName.Text + "\', \'" + txCount.Text + "\', \'" + tBarcode.Text + "\', \'" + txArticle.Text + "\', \'" + txPlace.Text + "\', \'" + txPrice.Text + "\')";
+                        if (txCount.Text == "") txCount.Text = "0";
+
+                        cmd2.CommandText = "INSERT INTO docSpec(id_doc, numb, name, count_e, barcode, article, place, price) values(\'" + doc_id + "\', \'" + numb.Text + "\', \'" + txName.Text + "\', \'" + txCount.Text + "\', \'" + tBarcode.Text + "\', \'" + txArticle.Text + "\', \'" + txPlace.Text.ToUpper() + ";\', \'" + txPrice.Text + "\')";
 
                         cmd2.ExecuteNonQuery();
 
                         conn2.Close();
                     }
-                    conn3.Close();
 
                     
                     System.Media.SystemSounds.Hand.Play();
                 }
-                catch
+                catch(Exception exp)
                 {
+                    MessageBox.Show(exp.Message);
                     System.Media.SystemSounds.Question.Play();
                 }
                 txArticle.Text = "";
@@ -637,20 +698,19 @@ namespace DCT
 
         private void dgSpec_DoubleClick(object sender, EventArgs e)
         {
-            DataGrid.HitTestInfo hit = dgSpec.HitTest(Control.MousePosition.X, Control.MousePosition.Y);
+            DataGrid.HitTestInfo hit = dgSpec.HitTest(Control.MousePosition.X, Control.MousePosition.Y - 20);
             try
             {
-                if (hit.Row != 0 && hit.Row != -1)
+                if (hit.Type == DataGrid.HitTestType.Cell)
                 {
-                    
-                    record_id = dgSpec[dgSpec.CurrentRowIndex, 0].ToString();
+                    record_id = dgSpec[hit.Row, 0].ToString();
                     Point P = new Point(Control.MousePosition.X, Control.MousePosition.Y - 20);
                     MenuCont.Show(dgSpec, P);
 
                 }
                 else
                 {
-                    if (hit.Row == 0)
+                    if (hit.Type == DataGrid.HitTestType.ColumnHeader)
                     {
                         if (dc)
                         {
@@ -837,6 +897,10 @@ namespace DCT
                 version.Visible = true;
             }
             else version.Visible = false;
+        }
+
+        private void dgSpec_MouseMove(object sender, MouseEventArgs e)
+        {
         }
     }
 }

@@ -163,7 +163,7 @@
             this.pGetting.Controls.Add(this.label1);
             this.pGetting.Location = new System.Drawing.Point(0, 0);
             this.pGetting.Name = "pGetting";
-            this.pGetting.Size = new System.Drawing.Size(240, 267);
+            this.pGetting.Size = new System.Drawing.Size(232, 264);
             this.pGetting.Text = "Прием";
             this.pGetting.Click += new System.EventHandler(this.pGetting_Click);
             // 
@@ -373,6 +373,7 @@
             this.dgSpec.TabIndex = 0;
             this.dgSpec.DoubleClick += new System.EventHandler(this.dgSpec_DoubleClick);
             this.dgSpec.CurrentCellChanged += new System.EventHandler(this.dgSpec_CurrentCellChanged);
+            this.dgSpec.MouseMove += new System.Windows.Forms.MouseEventHandler(this.dgSpec_MouseMove);
             this.dgSpec.Click += new System.EventHandler(this.dgSpec_Click);
             // 
             // pProof
@@ -396,7 +397,7 @@
             this.pProof.Controls.Add(this.lbarticle);
             this.pProof.Location = new System.Drawing.Point(0, 0);
             this.pProof.Name = "pProof";
-            this.pProof.Size = new System.Drawing.Size(240, 267);
+            this.pProof.Size = new System.Drawing.Size(232, 264);
             this.pProof.Text = "Проверка цен";
             // 
             // check_summ
@@ -559,7 +560,7 @@
             this.pDoc.Controls.Add(this.exit_btn);
             this.pDoc.Location = new System.Drawing.Point(0, 0);
             this.pDoc.Name = "pDoc";
-            this.pDoc.Size = new System.Drawing.Size(240, 267);
+            this.pDoc.Size = new System.Drawing.Size(232, 264);
             this.pDoc.Text = "Документ";
             this.pDoc.DoubleClick += new System.EventHandler(this.pDoc_DoubleClick);
             // 
