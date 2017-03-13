@@ -163,7 +163,7 @@
             this.pGetting.Controls.Add(this.label1);
             this.pGetting.Location = new System.Drawing.Point(0, 0);
             this.pGetting.Name = "pGetting";
-            this.pGetting.Size = new System.Drawing.Size(240, 267);
+            this.pGetting.Size = new System.Drawing.Size(232, 264);
             this.pGetting.Text = "Прием";
             this.pGetting.Click += new System.EventHandler(this.pGetting_Click);
             // 
@@ -352,7 +352,7 @@
             this.pSpec.Controls.Add(this.dgSpec);
             this.pSpec.Location = new System.Drawing.Point(0, 0);
             this.pSpec.Name = "pSpec";
-            this.pSpec.Size = new System.Drawing.Size(240, 267);
+            this.pSpec.Size = new System.Drawing.Size(232, 264);
             this.pSpec.Text = "Спецификация";
             // 
             // dgSpec
@@ -370,7 +370,7 @@
             this.dgSpec.RowHeadersVisible = false;
             this.dgSpec.SelectionBackColor = System.Drawing.Color.Black;
             this.dgSpec.SelectionForeColor = System.Drawing.Color.Bisque;
-            this.dgSpec.Size = new System.Drawing.Size(240, 267);
+            this.dgSpec.Size = new System.Drawing.Size(232, 264);
             this.dgSpec.TabIndex = 0;
             this.dgSpec.DoubleClick += new System.EventHandler(this.dgSpec_DoubleClick);
             this.dgSpec.CurrentCellChanged += new System.EventHandler(this.dgSpec_CurrentCellChanged);
@@ -398,7 +398,7 @@
             this.pProof.Controls.Add(this.lbarticle);
             this.pProof.Location = new System.Drawing.Point(0, 0);
             this.pProof.Name = "pProof";
-            this.pProof.Size = new System.Drawing.Size(240, 267);
+            this.pProof.Size = new System.Drawing.Size(232, 264);
             this.pProof.Text = "Проверка цен";
             // 
             // check_summ
@@ -572,6 +572,7 @@
             this.send_btn.Size = new System.Drawing.Size(215, 20);
             this.send_btn.TabIndex = 6;
             this.send_btn.Text = "передать на сервер";
+            this.send_btn.Click += new System.EventHandler(this.send_btn_Click);
             // 
             // who_get
             // 

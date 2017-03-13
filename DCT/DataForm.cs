@@ -8,12 +8,42 @@ using System.Text;
 using System.Data.SqlServerCe;
 using System.Windows.Forms;
 using System.Collections;
+using System.IO;
+using System.Xml;
+using System.Reflection;
+using System.Xml.Serialization;
 
 namespace DCT
 {
 
     public partial class DataForm : Form
     {
+        private struct RowSpec
+        {
+            public string id;
+            public string id_doc;
+            public string numb;
+            public string name;
+            public string count_e;
+            public string barcode;
+            public string article;
+            public string place;
+            public string price;
+
+            public RowSpec(string id, string id_doc, string numb, string name, string count_e, string barcode, string article, string place, string price)
+            {
+                this.id = id;
+                this.id_doc = id_doc;
+                this.numb = numb;
+                this.name = name;
+                this.count_e = count_e;
+                this.barcode = barcode;
+                this.article = article;
+                this.place = place;
+                this.price = price;
+            }
+        };
+
         public bool editable = false;
         public string editable_id = "";
 
@@ -776,6 +806,7 @@ namespace DCT
                         txNumb.Text = "";
                         txPrice.Text = "";
                         numb.Text = "";
+                        
                     }
                     else
                     {
@@ -1015,6 +1046,39 @@ namespace DCT
 
         private void dgSpec_MouseMove(object sender, MouseEventArgs e)
         {
+        }
+
+        private void send_btn_Click(object sender, EventArgs e)
+        {
+            List<string> Grid = new List<string>();
+
+            SqlCeConnection conn = null;
+            conn = new SqlCeConnection("Data Source = " + System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\yyy.sdf; Persist Security Info=False");
+            conn.Open();
+            SqlCeCommand cmd = new SqlCeCommand("SELECT id, id_doc, numb, name, count_e, barcode, article, place, price FROM docSpec", conn);
+
+            SqlCeDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                Grid.Add(reader["id"].ToString());
+                Grid.Add(reader["id_doc"].ToString());
+                Grid.Add(reader["numb"].ToString());
+                Grid.Add(reader["name"].ToString());
+                Grid.Add(reader["count_e"].ToString());
+                Grid.Add(reader["barcode"].ToString());
+                Grid.Add(reader["article"].ToString());
+                Grid.Add(reader["place"].ToString());
+                Grid.Add(reader["price"].ToString());
+            }
+            XmlSerializer B = new XmlSerializer(Grid.GetType());
+            MessageBox.Show("5");
+            TextWriter D = new StreamWriter(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\temp.xml");
+            MessageBox.Show("6");
+            B.Serialize(D, Grid);
+            MessageBox.Show("7");
+            conn.Close();
+
         }
     }
 }
