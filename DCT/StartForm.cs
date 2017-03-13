@@ -284,6 +284,7 @@ namespace DCT
                             if (myReader["id"].ToString() != "")
                             {
                                 _DataForm.doc_id = myReader["id"].ToString();
+                                _DataForm.typer = myReader["type"].ToString();
                                 typer = myReader["type"].ToString();
                                 break;
                             }
@@ -414,6 +415,11 @@ namespace DCT
 
         private void fio_doc_KeyPress(object sender, KeyPressEventArgs e)
         {
+            char l = e.KeyChar;
+            if ((l < 'А' || l > 'я') && l != '\b' && l != '.')
+            {
+                e.Handled = true;
+            }
         }
 
         private void num_doc_KeyPress(object sender, KeyPressEventArgs e)

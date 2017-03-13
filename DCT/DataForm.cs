@@ -23,6 +23,7 @@ namespace DCT
         public StartForm _StartForm;
 
         public string doc_id;
+        public string typer;
 
         public DataForm()
         {
@@ -322,7 +323,7 @@ namespace DCT
 
         private void txCount_GotFocus(object sender, EventArgs e)
         {
-            input_go.Enabled = true;
+            input_go.Enabled = false;
             lbPlace.Visible = false;
         }
 
@@ -360,9 +361,101 @@ namespace DCT
         {
             input_go.Enabled = false;
             lbPlace.Visible = false;
-            
-            if (txArticle.Text != "")
+            switch (typer)
             {
+                case "Перемещение в зал":
+                    {
+                        if (txArticle.Text == "")
+                        {
+                            MessageBox.Show("Ошибка добавления: Товар не найден в базе.");
+                            return;
+                        }
+                        if (txCount.Text == "")
+                        {
+                            MessageBox.Show("Ошибка добавления: Введите количество.");
+                            return;
+                        }
+                        break;
+                    }
+                case "Перемещение на склад":
+                    {
+                        if (txArticle.Text == "")
+                        {
+                            MessageBox.Show("Ошибка добавления: Товар не найден в базе.");
+                            return;
+                        }
+                        if (txCount.Text == "")
+                        {
+                            MessageBox.Show("Ошибка добавления: Введите количество.");
+                            return;
+                        }
+                        break;
+                    }
+                case "Приемка зал":
+                    {
+                        if (txArticle.Text == "")
+                        {
+                            MessageBox.Show("Ошибка добавления: Товар не найден в базе.");
+                            return;
+                        }
+                        if (txCount.Text == "")
+                        {
+                            MessageBox.Show("Ошибка добавления: Введите количество.");
+                            return;
+                        }
+                        break;
+                    }
+                case "Приемка склад":
+                    {
+                        if (txArticle.Text == "")
+                        {
+                            MessageBox.Show("Ошибка добавления: Товар не найден в базе.");
+                            return;
+                        }
+                        if (txCount.Text == "")
+                        {
+                            MessageBox.Show("Ошибка добавления: Введите количество.");
+                            return;
+                        }
+                        if (txPlace.Text == "")
+                        {
+                            MessageBox.Show("Ошибка добавления: Введите место хранения.");
+                            return;
+                        }
+                        break;
+                    }
+                case "Инвентаризация":
+                    {
+                        if (txArticle.Text == "")
+                        {
+                            MessageBox.Show("Ошибка добавления: Товар не найден в базе.");
+                            return;
+                        }
+                        if (txCount.Text == "")
+                        {
+                            MessageBox.Show("Ошибка добавления: Введите количество.");
+                            return;
+                        }
+                        break;
+                    }
+                case "Проверка цен":
+                    {
+                        if (txArticle.Text == "")
+                        {
+                            MessageBox.Show("Ошибка добавления: Товар не найден в базе.");
+                            return;
+                        }
+                        if (txCount.Text == "")
+                        {
+                            MessageBox.Show("Ошибка добавления: Введите количество.");
+                            return;
+                        }
+                        break;
+                    }
+            }
+
+            
+            
                 try
                 {
                     if (editable)
@@ -390,7 +483,7 @@ namespace DCT
                     SqlCeDataReader myReader = null;
                     myReader = cmd3.ExecuteReader();
 
-                    int count_e = 0;
+                    double count_e = 0;
 
                     bool ext = false;
 
@@ -401,7 +494,7 @@ namespace DCT
                         ext = true;
                         try
                         {
-                            count_e += Convert.ToInt32(myReader["count_e"].ToString());
+                            count_e += Convert.ToDouble(myReader["count_e"].ToString());
                             place += myReader["place"].ToString();
                         }
                         catch
@@ -450,7 +543,7 @@ namespace DCT
                     if (ext)
                     {
                         if (txCount.Text == "") txCount.Text = "0";
-                        count_e += Convert.ToInt32(txCount.Text);
+                        count_e += Convert.ToDouble(txCount.Text);
                         SqlCeConnection conn2 = null;
                         conn2 = new SqlCeConnection("Data Source = " + System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\yyy.sdf; Persist Security Info=False");
                         conn2.Open();
@@ -495,7 +588,6 @@ namespace DCT
                 txNumb.Text = "";
                 txPrice.Text = "";
                 numb.Text = "";
-            }
             /*
             else
             {
@@ -675,6 +767,15 @@ namespace DCT
                     {
                         System.Media.SystemSounds.Exclamation.Play();
                         Page.SelectedIndex = 1;
+                        txArticle.Text = "";
+                        txName.Text = "";
+                        txPlace.Text = "";
+                        lbPlace.Items.Clear();
+                        txCount.Text = "";
+                        txMesname.Text = "";
+                        txNumb.Text = "";
+                        txPrice.Text = "";
+                        numb.Text = "";
                     }
                     else
                     {
@@ -871,7 +972,20 @@ namespace DCT
 
         private void txCount_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar != 8 && (e.KeyChar < 48 || e.KeyChar > 57)) e.Handled = true;
+            if (e.KeyChar != 8 && (e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != '.')
+            {
+                if (e.KeyChar == '*' && txCount.Text.IndexOf('.') == -1)
+                {
+                    txCount.Text += '.';
+                    txCount.SelectionStart = txCount.Text.Length;
+                    e.Handled = true;
+                }
+                e.Handled = true;
+            }
+            else
+            {
+                if (e.KeyChar == '.' && txCount.Text.IndexOf('.') >= 0) e.Handled = true;
+            }
         }
 
         private void tBarcode_KeyPress(object sender, KeyPressEventArgs e)
@@ -883,7 +997,7 @@ namespace DCT
         {
             if (e.KeyCode != System.Windows.Forms.Keys.F22)
             {
-                if (tBarcode.Text.Length == 13)
+                if (tBarcode.Text.Length > 11)
                 {
                     FindBarcode(tBarcode.Text);
                 }

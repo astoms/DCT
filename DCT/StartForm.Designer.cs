@@ -100,7 +100,6 @@
             this.combobox.Items.Add("Приемка зал");
             this.combobox.Items.Add("Приемка склад");
             this.combobox.Items.Add("Инвентаризация");
-            this.combobox.Items.Add("Со склада в павильон");
             this.combobox.Items.Add("Проверка цен");
             this.combobox.Location = new System.Drawing.Point(3, 60);
             this.combobox.Name = "combobox";
