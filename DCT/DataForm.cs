@@ -51,6 +51,11 @@ namespace DCT
             {
                 GetSpec();
             }
+            if (Page.SelectedIndex == 4)
+            {
+                who_get.Text = "";
+                who_get.Focus();
+            }
         }
 
         private void GetSpec(string Column, bool desc)
@@ -418,6 +423,11 @@ namespace DCT
                     }
                 case "Приемка склад":
                     {
+                        if (tBarcode.Text == "")
+                        {
+                            MessageBox.Show("Ошибка добавления: Товар не отсканирован.");
+                            return;
+                        }
                         if (txCount.Text == "")
                         {
                             MessageBox.Show("Ошибка добавления: Введите количество.");
@@ -426,6 +436,16 @@ namespace DCT
                         if (txPlace.Text == "")
                         {
                             MessageBox.Show("Ошибка добавления: Введите место хранения.");
+                            return;
+                        }
+                        if (txPlace.Text.Length < 4)
+                        {
+                            MessageBox.Show("Ошибка добавления: Короткое имя места хранения.");
+                            return;
+                        }
+                        if (txPlace.Text.Length > 4)
+                        {
+                            MessageBox.Show("Ошибка добавления: Длинное имя места хранения.");
                             return;
                         }
                         break;
@@ -758,7 +778,8 @@ namespace DCT
                             {
                                 lbPlace.Items.Add(pl);
                             }
-                            txPlace.Text = placer[placer.Length - 1];
+                            txPlace.Text = "";
+                            txCount.Text = "";
                             txName.Text = myReader["names"].ToString();
                             txNumb.Text = myReader["quantity"].ToString();
                             txPrice.Text = myReader["Price"].ToString();
@@ -983,6 +1004,11 @@ namespace DCT
         {
             if (e.KeyChar != 8 && (e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != '.')
             {
+                if (e.KeyChar == '#')
+                {
+                    txPlace.Focus();
+                    e.Handled = true;
+                }
                 if (e.KeyChar == '*' && txCount.Text.IndexOf('.') == -1)
                 {
                     txCount.Text += '.';
@@ -1075,7 +1101,7 @@ namespace DCT
 
                 XmlSerializer B = new XmlSerializer(Grid.GetType());
 
-                TextWriter D = new StreamWriter(@path + "xml\\" + namer + "_" + DateTime.Now.ToString("dd_mm_yyyy_hh_mm_ss") + ".xml");
+                TextWriter D = new StreamWriter(@path + "xml\\" + namer + "_[" + who_get.Text + "]_" + DateTime.Now.ToString("dd_mm_yyyy_hh_mm_ss") + ".xml");
 
                 B.Serialize(D, Grid);
 
@@ -1156,6 +1182,11 @@ namespace DCT
 
         private void numb_KeyPress(object sender, KeyPressEventArgs e)
         {
+            if (e.KeyChar == '#')
+            {
+                buttonAdd.Focus();
+                e.Handled = true;
+            }
             if (e.KeyChar != 8 && (e.KeyChar < 48 || e.KeyChar > 57))
             {
                 e.Handled = true;
@@ -1168,6 +1199,7 @@ namespace DCT
             {
                 buttonAdd_Click_1(sender, e);
             }
+
         }
 
         private void txPlace_KeyUp(object sender, KeyEventArgs e)
@@ -1176,11 +1208,16 @@ namespace DCT
             {
                 buttonAdd_Click_1(sender, e);
             }
+
         }
 
         private void txNumb_KeyPress(object sender, KeyPressEventArgs e)
         {
-
+            if (e.KeyChar == '#')
+            {
+                txPrice.Focus();
+                e.Handled = true;
+            }
         }
 
         private void txPrice_KeyUp(object sender, KeyEventArgs e)
@@ -1189,6 +1226,7 @@ namespace DCT
             {
                 buttonAdd_Click_1(sender, e);
             }
+
         }
 
         private void txNumb_KeyUp(object sender, KeyEventArgs e)
@@ -1197,6 +1235,7 @@ namespace DCT
             {
                 buttonAdd_Click_1(sender, e);
             }
+
         }
 
         private void numb_KeyUp(object sender, KeyEventArgs e)
@@ -1205,12 +1244,79 @@ namespace DCT
             {
                 buttonAdd_Click_1(sender, e);
             }
+
         }
 
         private void numb_GotFocus(object sender, EventArgs e)
         {
             input_go.Enabled = false;  
             lbPlace.Visible = false;
+        }
+
+        private void numb_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txCount_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void txPlace_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void txNumb_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void txPrice_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void numb_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void txPlace_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '#')
+            {
+                txNumb.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void txPrice_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '#')
+            {
+                numb.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void buttonAdd_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '#')
+            {
+                txCount.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void who_get_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char l = e.KeyChar;
+            if ((l < 'А' || l > 'я') && l != '\b' && l != '.')
+            {
+                e.Handled = true;
+            }
         }
     }
 }

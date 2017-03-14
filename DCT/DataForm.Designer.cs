@@ -177,7 +177,9 @@
             this.numb.Name = "numb";
             this.numb.Size = new System.Drawing.Size(116, 24);
             this.numb.TabIndex = 83;
+            this.numb.TextChanged += new System.EventHandler(this.numb_TextChanged);
             this.numb.GotFocus += new System.EventHandler(this.numb_GotFocus);
+            this.numb.KeyDown += new System.Windows.Forms.KeyEventHandler(this.numb_KeyDown);
             this.numb.KeyUp += new System.Windows.Forms.KeyEventHandler(this.numb_KeyUp);
             this.numb.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.numb_KeyPress);
             // 
@@ -219,7 +221,9 @@
             this.txPrice.Size = new System.Drawing.Size(116, 24);
             this.txPrice.TabIndex = 70;
             this.txPrice.GotFocus += new System.EventHandler(this.txPrice_GotFocus);
+            this.txPrice.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txPrice_KeyDown);
             this.txPrice.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txPrice_KeyUp);
+            this.txPrice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txPrice_KeyPress);
             // 
             // txNumb
             // 
@@ -232,6 +236,7 @@
             this.txNumb.Size = new System.Drawing.Size(116, 24);
             this.txNumb.TabIndex = 69;
             this.txNumb.GotFocus += new System.EventHandler(this.txNumb_GotFocus);
+            this.txNumb.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txNumb_KeyDown);
             this.txNumb.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txNumb_KeyUp);
             this.txNumb.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txNumb_KeyPress);
             // 
@@ -258,6 +263,7 @@
             this.txCount.Size = new System.Drawing.Size(116, 24);
             this.txCount.TabIndex = 67;
             this.txCount.GotFocus += new System.EventHandler(this.txCount_GotFocus);
+            this.txCount.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txCount_KeyDown);
             this.txCount.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txCount_KeyUp);
             this.txCount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txCount_KeyPress);
             // 
@@ -271,7 +277,9 @@
             this.txPlace.Size = new System.Drawing.Size(116, 24);
             this.txPlace.TabIndex = 66;
             this.txPlace.GotFocus += new System.EventHandler(this.txPlace_GotFocus);
+            this.txPlace.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txPlace_KeyDown);
             this.txPlace.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txPlace_KeyUp);
+            this.txPlace.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txPlace_KeyPress);
             // 
             // txName
             // 
@@ -321,6 +329,7 @@
             this.buttonAdd.TabIndex = 50;
             this.buttonAdd.Text = "Принять";
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click_1);
+            this.buttonAdd.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.buttonAdd_KeyPress);
             // 
             // label6
             // 
@@ -575,7 +584,7 @@
             // 
             // send_btn
             // 
-            this.send_btn.Location = new System.Drawing.Point(7, 60);
+            this.send_btn.Location = new System.Drawing.Point(7, 91);
             this.send_btn.Name = "send_btn";
             this.send_btn.Size = new System.Drawing.Size(215, 39);
             this.send_btn.TabIndex = 6;
@@ -586,17 +595,17 @@
             // 
             this.who_get.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
             this.who_get.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.who_get.Location = new System.Drawing.Point(7, 186);
+            this.who_get.Location = new System.Drawing.Point(7, 61);
             this.who_get.Name = "who_get";
             this.who_get.Size = new System.Drawing.Size(215, 24);
             this.who_get.TabIndex = 5;
-            this.who_get.Visible = false;
+            this.who_get.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.who_get_KeyPress);
             // 
             // who_set
             // 
             this.who_set.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
             this.who_set.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.who_set.Location = new System.Drawing.Point(7, 136);
+            this.who_set.Location = new System.Drawing.Point(7, 175);
             this.who_set.Name = "who_set";
             this.who_set.ReadOnly = true;
             this.who_set.Size = new System.Drawing.Size(215, 24);
@@ -606,16 +615,15 @@
             // lbprinal
             // 
             this.lbprinal.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
-            this.lbprinal.Location = new System.Drawing.Point(7, 163);
+            this.lbprinal.Location = new System.Drawing.Point(7, 38);
             this.lbprinal.Name = "lbprinal";
             this.lbprinal.Size = new System.Drawing.Size(100, 20);
             this.lbprinal.Text = "принял:";
-            this.lbprinal.Visible = false;
             // 
             // lbsdal
             // 
             this.lbsdal.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
-            this.lbsdal.Location = new System.Drawing.Point(7, 113);
+            this.lbsdal.Location = new System.Drawing.Point(7, 152);
             this.lbsdal.Name = "lbsdal";
             this.lbsdal.Size = new System.Drawing.Size(100, 20);
             this.lbsdal.Text = "сдал:";
