@@ -285,6 +285,7 @@ namespace DCT
                             {
                                 _DataForm.doc_id = myReader["id"].ToString();
                                 _DataForm.typer = myReader["type"].ToString();
+                                _DataForm.namer = myReader["name"].ToString();
                                 typer = myReader["type"].ToString();
                                 break;
                             }

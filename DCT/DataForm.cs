@@ -18,31 +18,6 @@ namespace DCT
 
     public partial class DataForm : Form
     {
-        private struct RowSpec
-        {
-            public string id;
-            public string id_doc;
-            public string numb;
-            public string name;
-            public string count_e;
-            public string barcode;
-            public string article;
-            public string place;
-            public string price;
-
-            public RowSpec(string id, string id_doc, string numb, string name, string count_e, string barcode, string article, string place, string price)
-            {
-                this.id = id;
-                this.id_doc = id_doc;
-                this.numb = numb;
-                this.name = name;
-                this.count_e = count_e;
-                this.barcode = barcode;
-                this.article = article;
-                this.place = place;
-                this.price = price;
-            }
-        };
 
         public bool editable = false;
         public string editable_id = "";
@@ -54,6 +29,7 @@ namespace DCT
 
         public string doc_id;
         public string typer;
+        public string namer;
 
         public DataForm()
         {
@@ -347,7 +323,7 @@ namespace DCT
         private void txArticle_GotFocus(object sender, EventArgs e)
         {
             input_go.Enabled = false;
-            txPlace.Focus();
+            txCount.Focus();
             lbPlace.Visible = false;
         }
 
@@ -419,6 +395,11 @@ namespace DCT
                             MessageBox.Show("Ошибка добавления: Введите количество.");
                             return;
                         }
+                        if (txPlace.Text == "")
+                        {
+                            MessageBox.Show("Ошибка добавления: Введите место хранения.");
+                            return;
+                        }
                         break;
                     }
                 case "Приемка зал":
@@ -437,11 +418,6 @@ namespace DCT
                     }
                 case "Приемка склад":
                     {
-                        if (txArticle.Text == "")
-                        {
-                            MessageBox.Show("Ошибка добавления: Товар не найден в базе.");
-                            return;
-                        }
                         if (txCount.Text == "")
                         {
                             MessageBox.Show("Ошибка добавления: Введите количество.");
@@ -544,14 +520,14 @@ namespace DCT
                             bool adv = false;
                             foreach (string value in PL)
                             {
-                                if (value == pl[j])
+                                if (value.ToUpper() == pl[j].ToUpper())
                                 {
                                     adv = true;
                                     break;
                                 }
                             }
 
-                            if (adv == false) PL.Add(pl[j]); // 
+                            if (adv == false) PL.Add(pl[j].ToUpper()); // 
                             j++;
                         }
 
@@ -618,6 +594,7 @@ namespace DCT
                 txNumb.Text = "";
                 txPrice.Text = "";
                 numb.Text = "";
+                txCount.Focus();
             /*
             else
             {
@@ -806,12 +783,13 @@ namespace DCT
                         txNumb.Text = "";
                         txPrice.Text = "";
                         numb.Text = "";
-                        
+                        txCount.Focus();
                     }
                     else
                     {
                         System.Media.SystemSounds.Hand.Play();
                         Page.SelectedIndex = 1;
+                        txCount.Focus();
                     }
                 }
                 catch
@@ -1028,7 +1006,7 @@ namespace DCT
         {
             if (e.KeyCode != System.Windows.Forms.Keys.F22)
             {
-                if (tBarcode.Text.Length > 11)
+                if (tBarcode.Text.Length == 13 || e.KeyCode == System.Windows.Forms.Keys.Enter)
                 {
                     FindBarcode(tBarcode.Text);
                 }
@@ -1050,35 +1028,189 @@ namespace DCT
 
         private void send_btn_Click(object sender, EventArgs e)
         {
-            List<string> Grid = new List<string>();
+            var result = MessageBox.Show("Отправить документ на сервер ?", "Передача документа:", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
-            SqlCeConnection conn = null;
-            conn = new SqlCeConnection("Data Source = " + System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\yyy.sdf; Persist Security Info=False");
-            conn.Open();
-            SqlCeCommand cmd = new SqlCeCommand("SELECT id, id_doc, numb, name, count_e, barcode, article, place, price FROM docSpec", conn);
+            if (result != DialogResult.Yes) return;
 
-            SqlCeDataReader reader = cmd.ExecuteReader();
+            string bdname = GetString("name", System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase)+"\\get.ini");
+            string path = GetString("path", System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase)+"\\get.ini");
 
-            while (reader.Read())
+            string src = @path+bdname;
+            string dect = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\" + bdname;
+
+
+            if (!File.Exists(src))
             {
-                Grid.Add(reader["id"].ToString());
-                Grid.Add(reader["id_doc"].ToString());
-                Grid.Add(reader["numb"].ToString());
-                Grid.Add(reader["name"].ToString());
-                Grid.Add(reader["count_e"].ToString());
-                Grid.Add(reader["barcode"].ToString());
-                Grid.Add(reader["article"].ToString());
-                Grid.Add(reader["place"].ToString());
-                Grid.Add(reader["price"].ToString());
+                MessageBox.Show("Пожалуйста включите WiFi или локальную сеть!");
+                return;
             }
-            XmlSerializer B = new XmlSerializer(Grid.GetType());
-            MessageBox.Show("5");
-            TextWriter D = new StreamWriter(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\temp.xml");
-            MessageBox.Show("6");
-            B.Serialize(D, Grid);
-            MessageBox.Show("7");
-            conn.Close();
 
+            Page.Enabled = false;
+
+            try
+            {
+                List<string> Grid = new List<string>();
+
+                SqlCeConnection conn = null;
+                conn = new SqlCeConnection("Data Source = " + System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\yyy.sdf; Persist Security Info=False");
+                conn.Open();
+                SqlCeCommand cmd = new SqlCeCommand("SELECT id, id_doc, numb, name, count_e, barcode, article, place, price FROM docSpec where id_doc = \'" + doc_id + "\'", conn);
+
+                SqlCeDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+
+                    if (reader["id"].ToString() != "") { Grid.Add(reader["id"].ToString()); } else { Grid.Add("-"); };
+                    if (reader["id_doc"].ToString() != "") { Grid.Add(reader["id_doc"].ToString()); } else { Grid.Add("-"); };
+                    if (reader["numb"].ToString() != "") { Grid.Add(reader["numb"].ToString()); } else { Grid.Add("-"); };
+                    if (reader["name"].ToString() != "") { Grid.Add(reader["name"].ToString()); } else { Grid.Add("-"); };
+                    if (reader["count_e"].ToString() != "") { Grid.Add(reader["count_e"].ToString()); } else { Grid.Add("-"); };
+                    if (reader["barcode"].ToString() != "") { Grid.Add(reader["barcode"].ToString()); } else { Grid.Add("-"); };
+                    if (reader["article"].ToString() != "") { Grid.Add(reader["article"].ToString()); } else { Grid.Add("-"); };
+                    if (reader["place"].ToString() != "") { Grid.Add(reader["place"].ToString()); } else { Grid.Add("-"); };
+                    if (reader["price"].ToString() != "") { Grid.Add(reader["price"].ToString()); } else { Grid.Add("-"); };
+
+                }
+
+                XmlSerializer B = new XmlSerializer(Grid.GetType());
+
+                TextWriter D = new StreamWriter(@path + "xml\\" + namer + "_" + DateTime.Now.ToString("dd_mm_yyyy_hh_mm_ss") + ".xml");
+
+                B.Serialize(D, Grid);
+
+                D.Close();
+
+                conn.Close();
+            }
+            catch(Exception exp)
+            {
+                MessageBox.Show("Ошибка экспорта данных! Документ не был перемещен.\n"+exp.Message);
+                Page.Enabled = true;
+                return;
+            }
+
+            try
+            {
+                SqlCeConnection conn = null;
+                conn = new SqlCeConnection("Data Source = " + System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\yyy.sdf; Persist Security Info=False");
+                conn.Open();
+
+                SqlCeCommand cmd = new SqlCeCommand("DELETE FROM docSpec where id_doc = \'" + doc_id + "\'", conn);
+
+                cmd.ExecuteNonQuery();
+
+                conn.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Ошибка связи с базой! [#1]");
+            }
+
+            try
+            {
+                SqlCeConnection conn = null;
+                conn = new SqlCeConnection("Data Source = " + System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\yyy.sdf; Persist Security Info=False");
+                conn.Open();
+
+                SqlCeCommand cmd = new SqlCeCommand("DELETE FROM documents where id = \'" + doc_id + "\'", conn);
+
+                cmd.ExecuteNonQuery();
+
+                conn.Close();
+            }
+            catch 
+            {
+                MessageBox.Show("Ошибка связи с базой! [#2]");
+            }
+
+            MessageBox.Show("Документ ["+namer+"] был экспортирован!");
+            Page.Enabled = true;
+            _StartForm.Show();
+            this.Hide();
+        }
+
+        private string GetString(string param, string file)
+        {
+            try
+            {
+                StreamReader fs = new StreamReader(file);
+                string s = "";
+                while (s != null)
+                {
+                    s = fs.ReadLine();
+                    string[] text = s.Split('=');
+                    if (text[0] == param)
+                    {
+                        return text[1];
+                    }
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Вы используете не полную версию программы. Пожалуйста сообщите об этом системному администратору!");
+                return "";
+            }
+            return "";
+        }
+
+        private void numb_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar != 8 && (e.KeyChar < 48 || e.KeyChar > 57))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txCount_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonAdd_Click_1(sender, e);
+            }
+        }
+
+        private void txPlace_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonAdd_Click_1(sender, e);
+            }
+        }
+
+        private void txNumb_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
+
+        private void txPrice_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonAdd_Click_1(sender, e);
+            }
+        }
+
+        private void txNumb_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonAdd_Click_1(sender, e);
+            }
+        }
+
+        private void numb_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonAdd_Click_1(sender, e);
+            }
+        }
+
+        private void numb_GotFocus(object sender, EventArgs e)
+        {
+            input_go.Enabled = false;  
+            lbPlace.Visible = false;
         }
     }
 }

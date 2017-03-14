@@ -163,7 +163,7 @@
             this.pGetting.Controls.Add(this.label1);
             this.pGetting.Location = new System.Drawing.Point(0, 0);
             this.pGetting.Name = "pGetting";
-            this.pGetting.Size = new System.Drawing.Size(232, 264);
+            this.pGetting.Size = new System.Drawing.Size(240, 267);
             this.pGetting.Text = "Прием";
             this.pGetting.Click += new System.EventHandler(this.pGetting_Click);
             // 
@@ -177,6 +177,9 @@
             this.numb.Name = "numb";
             this.numb.Size = new System.Drawing.Size(116, 24);
             this.numb.TabIndex = 83;
+            this.numb.GotFocus += new System.EventHandler(this.numb_GotFocus);
+            this.numb.KeyUp += new System.Windows.Forms.KeyEventHandler(this.numb_KeyUp);
+            this.numb.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.numb_KeyPress);
             // 
             // label4
             // 
@@ -216,6 +219,7 @@
             this.txPrice.Size = new System.Drawing.Size(116, 24);
             this.txPrice.TabIndex = 70;
             this.txPrice.GotFocus += new System.EventHandler(this.txPrice_GotFocus);
+            this.txPrice.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txPrice_KeyUp);
             // 
             // txNumb
             // 
@@ -228,13 +232,15 @@
             this.txNumb.Size = new System.Drawing.Size(116, 24);
             this.txNumb.TabIndex = 69;
             this.txNumb.GotFocus += new System.EventHandler(this.txNumb_GotFocus);
+            this.txNumb.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txNumb_KeyUp);
+            this.txNumb.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txNumb_KeyPress);
             // 
             // txMesname
             // 
             this.txMesname.BackColor = System.Drawing.Color.Bisque;
             this.txMesname.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txMesname.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.txMesname.Location = new System.Drawing.Point(163, 101);
+            this.txMesname.Location = new System.Drawing.Point(171, 101);
             this.txMesname.Name = "txMesname";
             this.txMesname.ReadOnly = true;
             this.txMesname.Size = new System.Drawing.Size(45, 21);
@@ -252,6 +258,7 @@
             this.txCount.Size = new System.Drawing.Size(116, 24);
             this.txCount.TabIndex = 67;
             this.txCount.GotFocus += new System.EventHandler(this.txCount_GotFocus);
+            this.txCount.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txCount_KeyUp);
             this.txCount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txCount_KeyPress);
             // 
             // txPlace
@@ -264,6 +271,7 @@
             this.txPlace.Size = new System.Drawing.Size(116, 24);
             this.txPlace.TabIndex = 66;
             this.txPlace.GotFocus += new System.EventHandler(this.txPlace_GotFocus);
+            this.txPlace.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txPlace_KeyUp);
             // 
             // txName
             // 
@@ -352,7 +360,7 @@
             this.pSpec.Controls.Add(this.dgSpec);
             this.pSpec.Location = new System.Drawing.Point(0, 0);
             this.pSpec.Name = "pSpec";
-            this.pSpec.Size = new System.Drawing.Size(232, 264);
+            this.pSpec.Size = new System.Drawing.Size(240, 267);
             this.pSpec.Text = "Спецификация";
             // 
             // dgSpec
@@ -370,7 +378,7 @@
             this.dgSpec.RowHeadersVisible = false;
             this.dgSpec.SelectionBackColor = System.Drawing.Color.Black;
             this.dgSpec.SelectionForeColor = System.Drawing.Color.Bisque;
-            this.dgSpec.Size = new System.Drawing.Size(232, 264);
+            this.dgSpec.Size = new System.Drawing.Size(240, 267);
             this.dgSpec.TabIndex = 0;
             this.dgSpec.DoubleClick += new System.EventHandler(this.dgSpec_DoubleClick);
             this.dgSpec.CurrentCellChanged += new System.EventHandler(this.dgSpec_CurrentCellChanged);
@@ -398,7 +406,7 @@
             this.pProof.Controls.Add(this.lbarticle);
             this.pProof.Location = new System.Drawing.Point(0, 0);
             this.pProof.Name = "pProof";
-            this.pProof.Size = new System.Drawing.Size(232, 264);
+            this.pProof.Size = new System.Drawing.Size(240, 267);
             this.pProof.Text = "Проверка цен";
             // 
             // check_summ
@@ -567,9 +575,9 @@
             // 
             // send_btn
             // 
-            this.send_btn.Location = new System.Drawing.Point(7, 134);
+            this.send_btn.Location = new System.Drawing.Point(7, 60);
             this.send_btn.Name = "send_btn";
-            this.send_btn.Size = new System.Drawing.Size(215, 20);
+            this.send_btn.Size = new System.Drawing.Size(215, 39);
             this.send_btn.TabIndex = 6;
             this.send_btn.Text = "передать на сервер";
             this.send_btn.Click += new System.EventHandler(this.send_btn_Click);
@@ -578,36 +586,40 @@
             // 
             this.who_get.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
             this.who_get.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.who_get.Location = new System.Drawing.Point(7, 94);
+            this.who_get.Location = new System.Drawing.Point(7, 186);
             this.who_get.Name = "who_get";
             this.who_get.Size = new System.Drawing.Size(215, 24);
             this.who_get.TabIndex = 5;
+            this.who_get.Visible = false;
             // 
             // who_set
             // 
             this.who_set.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
             this.who_set.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.who_set.Location = new System.Drawing.Point(7, 47);
+            this.who_set.Location = new System.Drawing.Point(7, 136);
             this.who_set.Name = "who_set";
             this.who_set.ReadOnly = true;
             this.who_set.Size = new System.Drawing.Size(215, 24);
             this.who_set.TabIndex = 4;
+            this.who_set.Visible = false;
             // 
             // lbprinal
             // 
             this.lbprinal.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
-            this.lbprinal.Location = new System.Drawing.Point(7, 71);
+            this.lbprinal.Location = new System.Drawing.Point(7, 163);
             this.lbprinal.Name = "lbprinal";
             this.lbprinal.Size = new System.Drawing.Size(100, 20);
             this.lbprinal.Text = "принял:";
+            this.lbprinal.Visible = false;
             // 
             // lbsdal
             // 
             this.lbsdal.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Bold);
-            this.lbsdal.Location = new System.Drawing.Point(7, 24);
+            this.lbsdal.Location = new System.Drawing.Point(7, 113);
             this.lbsdal.Name = "lbsdal";
             this.lbsdal.Size = new System.Drawing.Size(100, 20);
             this.lbsdal.Text = "сдал:";
+            this.lbsdal.Visible = false;
             // 
             // version
             // 
@@ -619,9 +631,9 @@
             // 
             // exit_btn
             // 
-            this.exit_btn.Location = new System.Drawing.Point(7, 234);
+            this.exit_btn.Location = new System.Drawing.Point(7, 216);
             this.exit_btn.Name = "exit_btn";
-            this.exit_btn.Size = new System.Drawing.Size(215, 20);
+            this.exit_btn.Size = new System.Drawing.Size(215, 38);
             this.exit_btn.TabIndex = 1;
             this.exit_btn.Text = "главное меню";
             this.exit_btn.Click += new System.EventHandler(this.exit_btn_Click);
