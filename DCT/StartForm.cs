@@ -425,7 +425,17 @@ namespace DCT
 
         private void num_doc_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar != 8 && (e.KeyChar < 48 || e.KeyChar > 57)) e.Handled = true;
+            if (num_doc.Text.Length <= 2 && e.KeyChar != 8 && (e.KeyChar < 'А' || e.KeyChar > 'я') && e.KeyChar != '\b')
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                if (e.KeyChar != 8 && (e.KeyChar < 48 || e.KeyChar > 57))
+                {
+                    e.Handled = true;
+                }
+            }
         }
 
         private void num_doc_KeyUp(object sender, KeyEventArgs e)

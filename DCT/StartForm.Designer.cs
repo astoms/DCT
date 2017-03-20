@@ -73,7 +73,7 @@
             // 
             this.num_doc.BackColor = System.Drawing.Color.Bisque;
             this.num_doc.Location = new System.Drawing.Point(122, 33);
-            this.num_doc.MaxLength = 4;
+            this.num_doc.MaxLength = 12;
             this.num_doc.Name = "num_doc";
             this.num_doc.Size = new System.Drawing.Size(115, 21);
             this.num_doc.TabIndex = 3;

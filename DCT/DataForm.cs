@@ -347,12 +347,14 @@ namespace DCT
         private void txNumb_GotFocus(object sender, EventArgs e)
         {
             input_go.Enabled = false;
+            txCount.Focus();
             lbPlace.Visible = false;
         }
 
         private void txPrice_GotFocus(object sender, EventArgs e)
         {
             input_go.Enabled = false;
+            txCount.Focus();
             lbPlace.Visible = false;
         }
 
@@ -423,6 +425,11 @@ namespace DCT
                     }
                 case "Приемка склад":
                     {
+                        if (txArticle.Text == "")
+                        {
+                            MessageBox.Show("Ошибка добавления: Товар не найден в базе.");
+                            return;
+                        }
                         if (tBarcode.Text == "")
                         {
                             MessageBox.Show("Ошибка добавления: Товар не отсканирован.");
@@ -986,6 +993,7 @@ namespace DCT
                         txCount.Text = myReader["count_e"].ToString();
                         txMesname.Text = "";
                         txNumb.Text = "";
+                        numb.Text = myReader["numb"].ToString();
                         txPrice.Text = myReader["price"].ToString();
                         break;
                     }
@@ -1101,7 +1109,7 @@ namespace DCT
 
                 XmlSerializer B = new XmlSerializer(Grid.GetType());
 
-                TextWriter D = new StreamWriter(@path + "xml\\" + namer + "_[" + who_get.Text + "]_" + DateTime.Now.ToString("dd_mm_yyyy_hh_mm_ss") + ".xml");
+                TextWriter D = new StreamWriter(@path + "xml\\" + namer + "_[" + who_set.Text + "_" + who_get.Text + "]_" + DateTime.Now.ToString("dd_mm_yyyy_hh_mm_ss") + ".xml");
 
                 B.Serialize(D, Grid);
 
@@ -1213,28 +1221,17 @@ namespace DCT
 
         private void txNumb_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == '#')
-            {
-                txPrice.Focus();
-                e.Handled = true;
-            }
+
         }
 
         private void txPrice_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                buttonAdd_Click_1(sender, e);
-            }
 
         }
 
         private void txNumb_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                buttonAdd_Click_1(sender, e);
-            }
+
 
         }
 
@@ -1287,18 +1284,14 @@ namespace DCT
         {
             if (e.KeyChar == '#')
             {
-                txNumb.Focus();
+                numb.Focus();
                 e.Handled = true;
             }
         }
 
         private void txPrice_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == '#')
-            {
-                numb.Focus();
-                e.Handled = true;
-            }
+
         }
 
         private void buttonAdd_KeyPress(object sender, KeyPressEventArgs e)
@@ -1317,6 +1310,11 @@ namespace DCT
             {
                 e.Handled = true;
             }
+        }
+
+        private void label5_ParentChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
