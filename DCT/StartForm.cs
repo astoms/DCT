@@ -31,6 +31,8 @@ namespace DCT
 
         public DataForm _DataForm;
 
+        public string src;
+        public string dect;
 
         public StartForm()
         {
@@ -311,7 +313,45 @@ namespace DCT
         {
             FileInfo f1 = new FileInfo(file1);
             FileInfo f2 = new FileInfo(file2);
-            if (f1.Length == f2.Length) return true; else return false;
+
+            string updstr = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\update.ini";
+
+
+            if (!File.Exists(updstr))
+            {
+                string s = f1.Length.ToString();
+                StreamWriter SW = new StreamWriter(new FileStream(updstr, FileMode.Create, FileAccess.Write));
+                SW.Write(s);
+                SW.Close();
+                return false;
+            }
+            else
+            {
+                StreamReader SR = new StreamReader(new FileStream(updstr, FileMode.Open, FileAccess.Read));
+
+                string updver = SR.ReadLine();
+
+                string s = f1.Length.ToString();
+
+                SR.Close();
+
+                if (updver == s)
+                {
+                    return true;
+                }
+                else
+                {
+                    try
+                    {
+                        File.Delete(updstr);
+                    }
+                    catch { }
+                    StreamWriter SW = new StreamWriter(new FileStream(updstr, FileMode.Create, FileAccess.Write));
+                    SW.Write(s);
+                    SW.Close();
+                    return false;
+                }
+            }   
         }
 
         private string GetString(string param, string file)
@@ -347,8 +387,8 @@ namespace DCT
             string bdname = GetString("name", System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase)+"\\get.ini");
             string path = GetString("path", System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase)+"\\get.ini");
 
-            string src = @path+bdname;
-            string dect = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\" + bdname;
+            src = @path+bdname;
+            dect = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\" + bdname;
 
 
             if (!File.Exists(src))
@@ -377,6 +417,20 @@ namespace DCT
                     }
                 }
             }
+            else
+            {
+                FileInfo f1 = new FileInfo(src);
+                string updstr = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\update.ini";
+                try
+                {
+                    File.Delete(updstr);
+                }
+                catch { }
+                string s = f1.Length.ToString();
+                StreamWriter SW = new StreamWriter(new FileStream(updstr, FileMode.Create, FileAccess.Write));
+                SW.Write(s);
+                SW.Close();
+            }
 
             uploader.Visible = true;
 
@@ -394,9 +448,37 @@ namespace DCT
         {
             if (!canceled)
             {
+                try
+                {
+                    SqlCeConnection conn = null;
+                    conn = new SqlCeConnection("Data Source = " + System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\xxx.sdf; Persist Security Info=False");
+                    conn.Open();
+                    SqlCeCommand cmd = new SqlCeCommand("CREATE INDEX _dwwee ON dwwee(strihkod, article, names, clPlace, price, clQty, clEdlsm, name, quantity, salerate, saleq, summ, mesname);", conn);
+
+                    cmd.ExecuteNonQuery();
+
+                    conn.Close();
+                }
+                catch
+                {
+                }
                 System.Media.SystemSounds.Asterisk.Play();
+                System.Threading.Thread.Sleep(500);
+                System.Media.SystemSounds.Asterisk.Play();
+                System.Threading.Thread.Sleep(500);
+                System.Media.SystemSounds.Asterisk.Play();
+                System.Threading.Thread.Sleep(500);
+                System.Media.SystemSounds.Asterisk.Play();
+                System.Threading.Thread.Sleep(500);
+                System.Media.SystemSounds.Asterisk.Play();
+                System.Threading.Thread.Sleep(500);
+                System.Media.SystemSounds.Asterisk.Play();
+                System.Threading.Thread.Sleep(500);
+
                 MessageBox.Show("Обновление базы прошло успешно!");
                 uploader.Visible = false;
+
+
             }
         }
 
@@ -417,7 +499,7 @@ namespace DCT
         private void fio_doc_KeyPress(object sender, KeyPressEventArgs e)
         {
             char l = e.KeyChar;
-            if ((l < 'А' || l > 'я') && l != '\b' && l != '.')
+            if (e.KeyChar != 8 && (l < 'А' || l > 'я') && l != '\b' && l != '.' && l != ' ')
             {
                 e.Handled = true;
             }
@@ -425,22 +507,20 @@ namespace DCT
 
         private void num_doc_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (num_doc.Text.Length <= 2 && e.KeyChar != 8 && (e.KeyChar < 'А' || e.KeyChar > 'я') && e.KeyChar != '\b')
+            char l = e.KeyChar;
+            if (num_doc.Text.Length < 2)
             {
-                e.Handled = true;
+                if (e.KeyChar != 8 && (l < 'А' || l > 'я') && l != '\b' && l != '.') e.Handled = true;
             }
             else
             {
-                if (e.KeyChar != 8 && (e.KeyChar < 48 || e.KeyChar > 57))
-                {
-                    e.Handled = true;
-                }
+                if (e.KeyChar != 8 && (e.KeyChar < 48 || e.KeyChar > 57)) e.Handled = true;
             }
         }
 
         private void num_doc_KeyUp(object sender, KeyEventArgs e)
         {
-
+            
         }
 
         private void fio_doc_KeyUp(object sender, KeyEventArgs e)
@@ -636,6 +716,18 @@ namespace DCT
         private void combobox_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void num_doc_TextChanged(object sender, EventArgs e)
+        {
+            num_doc.Text = num_doc.Text.ToUpper();
+            num_doc.SelectionStart = num_doc.Text.Length;
+        }
+
+        private void fio_doc_TextChanged(object sender, EventArgs e)
+        {
+            fio_doc.Text = fio_doc.Text.ToUpper();
+            fio_doc.SelectionStart = fio_doc.Text.Length;
         }
     }
 }

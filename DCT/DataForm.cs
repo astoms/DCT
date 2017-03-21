@@ -47,14 +47,19 @@ namespace DCT
             {
                 tBarcode.Focus();
             }
+            if (Page.SelectedIndex == 1)
+            {
+                txCount.Focus();
+            }
             if (Page.SelectedIndex == 2)
             {
                 GetSpec();
             }
             if (Page.SelectedIndex == 4)
             {
+                who_set.Text = "";
                 who_get.Text = "";
-                who_get.Focus();
+                who_set.Focus();
             }
         }
 
@@ -445,12 +450,12 @@ namespace DCT
                             MessageBox.Show("Ошибка добавления: Введите место хранения.");
                             return;
                         }
-                        if (txPlace.Text.Length < 4)
+                        if (txPlace.Text.Length < 4 && editable == false)
                         {
                             MessageBox.Show("Ошибка добавления: Короткое имя места хранения.");
                             return;
                         }
-                        if (txPlace.Text.Length > 4)
+                        if (txPlace.Text.Length > 4 && editable == false)
                         {
                             MessageBox.Show("Ошибка добавления: Длинное имя места хранения.");
                             return;
@@ -1306,7 +1311,7 @@ namespace DCT
         private void who_get_KeyPress(object sender, KeyPressEventArgs e)
         {
             char l = e.KeyChar;
-            if ((l < 'А' || l > 'я') && l != '\b' && l != '.')
+            if ((l < 'А' || l > 'я') && l != '\b' && l != '"' && l != '\'' && l != ' ')
             {
                 e.Handled = true;
             }
@@ -1315,6 +1320,52 @@ namespace DCT
         private void label5_ParentChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void who_set_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char l = e.KeyChar;
+            if ((l < 'А' || l > 'я') && l != '\b' && l != '"' && l != '\'' && l != ' ')
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void who_set_TextChanged(object sender, EventArgs e)
+        {
+            who_set.Text = who_set.Text.ToUpper();
+            who_set.SelectionStart = who_set.Text.Length;
+        }
+
+        private void who_get_TextChanged(object sender, EventArgs e)
+        {
+            who_get.Text = who_get.Text.ToUpper();
+            who_get.SelectionStart = who_get.Text.Length;
+        }
+
+        private void who_set_GotFocus(object sender, EventArgs e)
+        {
+            input_go.Enabled = true;
+        }
+
+        private void who_get_GotFocus(object sender, EventArgs e)
+        {
+            input_go.Enabled = true;
+        }
+
+        private void send_btn_GotFocus(object sender, EventArgs e)
+        {
+            input_go.Enabled = false;
+        }
+
+        private void exit_btn_GotFocus(object sender, EventArgs e)
+        {
+            input_go.Enabled = false;
+        }
+
+        private void pDoc_GotFocus(object sender, EventArgs e)
+        {
+            input_go.Enabled = false;
         }
     }
 }

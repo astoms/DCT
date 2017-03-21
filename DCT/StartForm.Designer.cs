@@ -77,6 +77,7 @@
             this.num_doc.Name = "num_doc";
             this.num_doc.Size = new System.Drawing.Size(115, 21);
             this.num_doc.TabIndex = 3;
+            this.num_doc.TextChanged += new System.EventHandler(this.num_doc_TextChanged);
             this.num_doc.GotFocus += new System.EventHandler(this.num_doc_GotFocus);
             this.num_doc.KeyUp += new System.Windows.Forms.KeyEventHandler(this.num_doc_KeyUp);
             this.num_doc.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.num_doc_KeyPress);
@@ -89,6 +90,7 @@
             this.fio_doc.Name = "fio_doc";
             this.fio_doc.Size = new System.Drawing.Size(115, 21);
             this.fio_doc.TabIndex = 4;
+            this.fio_doc.TextChanged += new System.EventHandler(this.fio_doc_TextChanged);
             this.fio_doc.GotFocus += new System.EventHandler(this.fio_doc_GotFocus);
             this.fio_doc.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.fio_doc_KeyPress);
             // 

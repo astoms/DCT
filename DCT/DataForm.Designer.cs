@@ -37,7 +37,6 @@
             this.pGetting = new System.Windows.Forms.TabPage();
             this.numb = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.lbPlace = new System.Windows.Forms.ListBox();
             this.pbPlace = new System.Windows.Forms.PictureBox();
             this.txPrice = new System.Windows.Forms.TextBox();
             this.txNumb = new System.Windows.Forms.TextBox();
@@ -75,7 +74,6 @@
             this.pDoc = new System.Windows.Forms.TabPage();
             this.send_btn = new System.Windows.Forms.Button();
             this.who_get = new System.Windows.Forms.TextBox();
-            this.who_set = new System.Windows.Forms.TextBox();
             this.lbprinal = new System.Windows.Forms.Label();
             this.lbsdal = new System.Windows.Forms.Label();
             this.version = new System.Windows.Forms.Label();
@@ -84,6 +82,8 @@
             this.MenuCont = new System.Windows.Forms.ContextMenu();
             this.menuItem1 = new System.Windows.Forms.MenuItem();
             this.menuItem2 = new System.Windows.Forms.MenuItem();
+            this.lbPlace = new System.Windows.Forms.ListBox();
+            this.who_set = new System.Windows.Forms.TextBox();
             this.Page.SuspendLayout();
             this.pBarcode.SuspendLayout();
             this.pGetting.SuspendLayout();
@@ -143,9 +143,9 @@
             // pGetting
             // 
             this.pGetting.BackColor = System.Drawing.Color.Bisque;
+            this.pGetting.Controls.Add(this.lbPlace);
             this.pGetting.Controls.Add(this.numb);
             this.pGetting.Controls.Add(this.label4);
-            this.pGetting.Controls.Add(this.lbPlace);
             this.pGetting.Controls.Add(this.pbPlace);
             this.pGetting.Controls.Add(this.txPrice);
             this.pGetting.Controls.Add(this.txNumb);
@@ -191,16 +191,6 @@
             this.label4.Size = new System.Drawing.Size(84, 19);
             this.label4.Text = "Номер п/п:";
             // 
-            // lbPlace
-            // 
-            this.lbPlace.BackColor = System.Drawing.Color.Bisque;
-            this.lbPlace.Location = new System.Drawing.Point(156, 167);
-            this.lbPlace.Name = "lbPlace";
-            this.lbPlace.Size = new System.Drawing.Size(59, 72);
-            this.lbPlace.TabIndex = 72;
-            this.lbPlace.Visible = false;
-            this.lbPlace.SelectedIndexChanged += new System.EventHandler(this.lbPlace_SelectedIndexChanged);
-            // 
             // pbPlace
             // 
             this.pbPlace.Image = ((System.Drawing.Image)(resources.GetObject("pbPlace.Image")));
@@ -244,13 +234,14 @@
             // 
             // txMesname
             // 
+            this.txMesname.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txMesname.BackColor = System.Drawing.Color.Bisque;
             this.txMesname.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txMesname.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.txMesname.Location = new System.Drawing.Point(169, 136);
+            this.txMesname.Location = new System.Drawing.Point(181, 136);
             this.txMesname.Name = "txMesname";
             this.txMesname.ReadOnly = true;
-            this.txMesname.Size = new System.Drawing.Size(45, 21);
+            this.txMesname.Size = new System.Drawing.Size(30, 21);
             this.txMesname.TabIndex = 68;
             this.txMesname.GotFocus += new System.EventHandler(this.txMesname_GotFocus);
             // 
@@ -572,9 +563,9 @@
             // pDoc
             // 
             this.pDoc.BackColor = System.Drawing.Color.Bisque;
+            this.pDoc.Controls.Add(this.who_set);
             this.pDoc.Controls.Add(this.send_btn);
             this.pDoc.Controls.Add(this.who_get);
-            this.pDoc.Controls.Add(this.who_set);
             this.pDoc.Controls.Add(this.lbprinal);
             this.pDoc.Controls.Add(this.lbsdal);
             this.pDoc.Controls.Add(this.version);
@@ -584,6 +575,7 @@
             this.pDoc.Size = new System.Drawing.Size(240, 267);
             this.pDoc.Text = "Документ";
             this.pDoc.DoubleClick += new System.EventHandler(this.pDoc_DoubleClick);
+            this.pDoc.GotFocus += new System.EventHandler(this.pDoc_GotFocus);
             // 
             // send_btn
             // 
@@ -593,6 +585,7 @@
             this.send_btn.TabIndex = 6;
             this.send_btn.Text = "передать на сервер";
             this.send_btn.Click += new System.EventHandler(this.send_btn_Click);
+            this.send_btn.GotFocus += new System.EventHandler(this.send_btn_GotFocus);
             // 
             // who_get
             // 
@@ -602,17 +595,9 @@
             this.who_get.Name = "who_get";
             this.who_get.Size = new System.Drawing.Size(215, 24);
             this.who_get.TabIndex = 5;
+            this.who_get.TextChanged += new System.EventHandler(this.who_get_TextChanged);
+            this.who_get.GotFocus += new System.EventHandler(this.who_get_GotFocus);
             this.who_get.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.who_get_KeyPress);
-            // 
-            // who_set
-            // 
-            this.who_set.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
-            this.who_set.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.who_set.Location = new System.Drawing.Point(7, 61);
-            this.who_set.Name = "who_set";
-            this.who_set.ReadOnly = true;
-            this.who_set.Size = new System.Drawing.Size(215, 24);
-            this.who_set.TabIndex = 4;
             // 
             // lbprinal
             // 
@@ -646,6 +631,7 @@
             this.exit_btn.TabIndex = 1;
             this.exit_btn.Text = "главное меню";
             this.exit_btn.Click += new System.EventHandler(this.exit_btn_Click);
+            this.exit_btn.GotFocus += new System.EventHandler(this.exit_btn_GotFocus);
             // 
             // MenuCont
             // 
@@ -662,6 +648,27 @@
             // 
             this.menuItem2.Text = "удалить";
             this.menuItem2.Click += new System.EventHandler(this.menuItem2_Click);
+            // 
+            // lbPlace
+            // 
+            this.lbPlace.BackColor = System.Drawing.Color.Bisque;
+            this.lbPlace.Location = new System.Drawing.Point(156, 167);
+            this.lbPlace.Name = "lbPlace";
+            this.lbPlace.Size = new System.Drawing.Size(59, 72);
+            this.lbPlace.TabIndex = 93;
+            this.lbPlace.Visible = false;
+            // 
+            // who_set
+            // 
+            this.who_set.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
+            this.who_set.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.who_set.Location = new System.Drawing.Point(7, 61);
+            this.who_set.Name = "who_set";
+            this.who_set.Size = new System.Drawing.Size(215, 24);
+            this.who_set.TabIndex = 10;
+            this.who_set.TextChanged += new System.EventHandler(this.who_set_TextChanged);
+            this.who_set.GotFocus += new System.EventHandler(this.who_set_GotFocus);
+            this.who_set.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.who_set_KeyPress);
             // 
             // DataForm
             // 
@@ -716,7 +723,6 @@
         public Microsoft.WindowsCE.Forms.InputPanel input_go;
         public System.Windows.Forms.PictureBox pbPlace;
         public System.Windows.Forms.DataGrid dgSpec;
-        public System.Windows.Forms.ListBox lbPlace;
         private System.Windows.Forms.ContextMenu MenuCont;
         private System.Windows.Forms.MenuItem menuItem1;
         private System.Windows.Forms.MenuItem menuItem2;
@@ -739,10 +745,11 @@
         public System.Windows.Forms.TextBox check_goods;
         private System.Windows.Forms.Label lbsdal;
         private System.Windows.Forms.TextBox who_get;
-        private System.Windows.Forms.TextBox who_set;
         private System.Windows.Forms.Label lbprinal;
         private System.Windows.Forms.Button send_btn;
         public System.Windows.Forms.Label label4;
         public System.Windows.Forms.TextBox numb;
+        public System.Windows.Forms.ListBox lbPlace;
+        private System.Windows.Forms.TextBox who_set;
     }
 }
