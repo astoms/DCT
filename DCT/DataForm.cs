@@ -30,6 +30,7 @@ namespace DCT
         public string doc_id;
         public string typer;
         public string namer;
+        public string family;
 
         public DataForm()
         {
@@ -57,7 +58,7 @@ namespace DCT
             }
             if (Page.SelectedIndex == 4)
             {
-                who_set.Text = "";
+                //who_set.Text = "";
                 who_get.Text = "";
                 who_set.Focus();
             }
@@ -540,7 +541,10 @@ namespace DCT
                         }
                     }
 
-                    place += txPlace.Text + ';';
+                    if (txPlace.Text != "")
+                    {
+                        place += txPlace.Text + ';';
+                    }
 
                     try
                     {
@@ -592,6 +596,7 @@ namespace DCT
                         cmd2.ExecuteNonQuery();
 
                         conn2.Close();
+                        tBarcode.Text = "";
                     }
                     else
                     {
@@ -602,11 +607,18 @@ namespace DCT
 
                         if (txCount.Text == "") txCount.Text = "0";
 
-                        cmd2.CommandText = "INSERT INTO docSpec(id_doc, numb, name, count_e, barcode, article, place, price) values(\'" + doc_id + "\', \'" + numb.Text + "\', \'" + txName.Text + "\', \'" + txCount.Text + "\', \'" + tBarcode.Text + "\', \'" + txArticle.Text + "\', \'" + txPlace.Text.ToUpper() + ";\', \'" + txPrice.Text + "\')";
+                        string myplace = "";
+
+                        if (txPlace.Text != "") myplace += txPlace.Text + ";";
+
+                        cmd2.Parameters.Clear();
+                        cmd2.CommandText = "INSERT INTO docSpec(id_doc, numb, name, count_e, barcode, article, place, price) values(\'" + doc_id + "\', \'" + numb.Text + "\', @named, \'" + txCount.Text + "\', \'" + tBarcode.Text + "\', \'" + txArticle.Text + "\', \'" + myplace.ToUpper() + "\', \'" + txPrice.Text + "\')";
+                        cmd2.Parameters.AddWithValue("@named", txName.Text);
 
                         cmd2.ExecuteNonQuery();
 
                         conn2.Close();
+                        tBarcode.Text = "";
                     }
 
                     
@@ -619,7 +631,8 @@ namespace DCT
                 }
                 txArticle.Text = "";
                 txName.Text = "";
-                txPlace.Text = "";
+                
+                //txPlace.Text = "";
                 lbPlace.Items.Clear();
                 txCount.Text = "";
                 txMesname.Text = "";
@@ -765,6 +778,10 @@ namespace DCT
         {
             if (value != "")
             {
+                if (value.Length == 12 && value[1] == '0')
+                {
+                    value = '0' + value;
+                }
                 try
                 {
                     SqlCeConnection conn = null;
@@ -790,7 +807,7 @@ namespace DCT
                             {
                                 lbPlace.Items.Add(pl);
                             }
-                            txPlace.Text = "";
+                            //txPlace.Text = "";
                             txCount.Text = "";
                             txName.Text = myReader["names"].ToString();
                             txNumb.Text = myReader["quantity"].ToString();
@@ -809,7 +826,7 @@ namespace DCT
                         Page.SelectedIndex = 1;
                         txArticle.Text = "";
                         txName.Text = "";
-                        txPlace.Text = "";
+                        //txPlace.Text = "";
                         lbPlace.Items.Clear();
                         txCount.Text = "";
                         txMesname.Text = "";
@@ -1017,7 +1034,7 @@ namespace DCT
         {
             if (e.KeyChar != 8 && (e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != '.')
             {
-                if (e.KeyChar == '#')
+                if (e.KeyChar == 13)
                 {
                     txPlace.Focus();
                     e.Handled = true;
@@ -1195,7 +1212,7 @@ namespace DCT
 
         private void numb_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == '#')
+            if (e.KeyChar == 13)
             {
                 buttonAdd.Focus();
                 e.Handled = true;
@@ -1208,19 +1225,11 @@ namespace DCT
 
         private void txCount_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                buttonAdd_Click_1(sender, e);
-            }
 
         }
 
         private void txPlace_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                buttonAdd_Click_1(sender, e);
-            }
 
         }
 
@@ -1242,10 +1251,6 @@ namespace DCT
 
         private void numb_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                buttonAdd_Click_1(sender, e);
-            }
 
         }
 
@@ -1287,7 +1292,7 @@ namespace DCT
 
         private void txPlace_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == '#')
+            if (e.KeyChar == 13)
             {
                 numb.Focus();
                 e.Handled = true;
@@ -1301,11 +1306,6 @@ namespace DCT
 
         private void buttonAdd_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == '#')
-            {
-                txCount.Focus();
-                e.Handled = true;
-            }
         }
 
         private void who_get_KeyPress(object sender, KeyPressEventArgs e)
@@ -1366,6 +1366,11 @@ namespace DCT
         private void pDoc_GotFocus(object sender, EventArgs e)
         {
             input_go.Enabled = false;
+        }
+
+        private void txPlace_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

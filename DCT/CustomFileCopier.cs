@@ -58,17 +58,17 @@ namespace DCT
                 }
 
             }
-            catch (IOException e)
+            catch
             {
+                string updstr = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\update.ini";
+                try
+                {
+                    File.Delete(updstr);
+                }
+                catch { }
                 cancelFlag = true;
                 MessageBox.Show("Неудалось получить обновление! \n" + SourceFilePath + "\n" + DestFilePath);
-                MessageBox.Show(e.Message);
-            }
-            catch (Exception e)
-            {
-                cancelFlag = true;
-                MessageBox.Show("Неудалось получить обновление! \n" + SourceFilePath + "\n" + DestFilePath);
-                MessageBox.Show(e.Message);
+                //MessageBox.Show(e.Message);
             }
 
             OnComplete(cancelFlag);

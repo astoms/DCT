@@ -35,6 +35,7 @@
             this.tBarcode = new System.Windows.Forms.TextBox();
             this.Img_Src = new System.Windows.Forms.PictureBox();
             this.pGetting = new System.Windows.Forms.TabPage();
+            this.lbPlace = new System.Windows.Forms.ListBox();
             this.numb = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.pbPlace = new System.Windows.Forms.PictureBox();
@@ -45,7 +46,6 @@
             this.txPlace = new System.Windows.Forms.TextBox();
             this.txName = new System.Windows.Forms.Label();
             this.txArticle = new System.Windows.Forms.TextBox();
-            this.lblPrice = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
@@ -72,6 +72,7 @@
             this.lbnames = new System.Windows.Forms.Label();
             this.lbarticle = new System.Windows.Forms.Label();
             this.pDoc = new System.Windows.Forms.TabPage();
+            this.who_set = new System.Windows.Forms.TextBox();
             this.send_btn = new System.Windows.Forms.Button();
             this.who_get = new System.Windows.Forms.TextBox();
             this.lbprinal = new System.Windows.Forms.Label();
@@ -82,8 +83,6 @@
             this.MenuCont = new System.Windows.Forms.ContextMenu();
             this.menuItem1 = new System.Windows.Forms.MenuItem();
             this.menuItem2 = new System.Windows.Forms.MenuItem();
-            this.lbPlace = new System.Windows.Forms.ListBox();
-            this.who_set = new System.Windows.Forms.TextBox();
             this.Page.SuspendLayout();
             this.pBarcode.SuspendLayout();
             this.pGetting.SuspendLayout();
@@ -154,7 +153,6 @@
             this.pGetting.Controls.Add(this.txPlace);
             this.pGetting.Controls.Add(this.txName);
             this.pGetting.Controls.Add(this.txArticle);
-            this.pGetting.Controls.Add(this.lblPrice);
             this.pGetting.Controls.Add(this.label2);
             this.pGetting.Controls.Add(this.buttonAdd);
             this.pGetting.Controls.Add(this.label6);
@@ -167,12 +165,21 @@
             this.pGetting.Text = "Прием";
             this.pGetting.Click += new System.EventHandler(this.pGetting_Click);
             // 
+            // lbPlace
+            // 
+            this.lbPlace.BackColor = System.Drawing.Color.Bisque;
+            this.lbPlace.Location = new System.Drawing.Point(156, 132);
+            this.lbPlace.Name = "lbPlace";
+            this.lbPlace.Size = new System.Drawing.Size(59, 72);
+            this.lbPlace.TabIndex = 93;
+            this.lbPlace.Visible = false;
+            // 
             // numb
             // 
             this.numb.BackColor = System.Drawing.Color.Bisque;
             this.numb.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
             this.numb.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.numb.Location = new System.Drawing.Point(99, 197);
+            this.numb.Location = new System.Drawing.Point(99, 162);
             this.numb.MaxLength = 8;
             this.numb.Name = "numb";
             this.numb.Size = new System.Drawing.Size(116, 24);
@@ -186,7 +193,7 @@
             // label4
             // 
             this.label4.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
-            this.label4.Location = new System.Drawing.Point(7, 198);
+            this.label4.Location = new System.Drawing.Point(7, 162);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(84, 19);
             this.label4.Text = "Номер п/п:";
@@ -194,7 +201,7 @@
             // pbPlace
             // 
             this.pbPlace.Image = ((System.Drawing.Image)(resources.GetObject("pbPlace.Image")));
-            this.pbPlace.Location = new System.Drawing.Point(190, 168);
+            this.pbPlace.Location = new System.Drawing.Point(190, 133);
             this.pbPlace.Name = "pbPlace";
             this.pbPlace.Size = new System.Drawing.Size(22, 22);
             this.pbPlace.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -206,10 +213,10 @@
             this.txPrice.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txPrice.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
             this.txPrice.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.txPrice.Location = new System.Drawing.Point(171, 9);
+            this.txPrice.Location = new System.Drawing.Point(183, 28);
             this.txPrice.Name = "txPrice";
             this.txPrice.ReadOnly = true;
-            this.txPrice.Size = new System.Drawing.Size(62, 19);
+            this.txPrice.Size = new System.Drawing.Size(42, 19);
             this.txPrice.TabIndex = 70;
             this.txPrice.GotFocus += new System.EventHandler(this.txPrice_GotFocus);
             this.txPrice.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txPrice_KeyDown);
@@ -222,10 +229,10 @@
             this.txNumb.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txNumb.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
             this.txNumb.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.txNumb.Location = new System.Drawing.Point(100, 34);
+            this.txNumb.Location = new System.Drawing.Point(183, 8);
             this.txNumb.Name = "txNumb";
             this.txNumb.ReadOnly = true;
-            this.txNumb.Size = new System.Drawing.Size(117, 19);
+            this.txNumb.Size = new System.Drawing.Size(42, 19);
             this.txNumb.TabIndex = 69;
             this.txNumb.GotFocus += new System.EventHandler(this.txNumb_GotFocus);
             this.txNumb.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txNumb_KeyDown);
@@ -238,10 +245,10 @@
             this.txMesname.BackColor = System.Drawing.Color.Bisque;
             this.txMesname.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txMesname.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.txMesname.Location = new System.Drawing.Point(181, 136);
+            this.txMesname.Location = new System.Drawing.Point(183, 104);
             this.txMesname.Name = "txMesname";
             this.txMesname.ReadOnly = true;
-            this.txMesname.Size = new System.Drawing.Size(30, 21);
+            this.txMesname.Size = new System.Drawing.Size(25, 21);
             this.txMesname.TabIndex = 68;
             this.txMesname.GotFocus += new System.EventHandler(this.txMesname_GotFocus);
             // 
@@ -250,7 +257,7 @@
             this.txCount.BackColor = System.Drawing.Color.Bisque;
             this.txCount.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
             this.txCount.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.txCount.Location = new System.Drawing.Point(99, 135);
+            this.txCount.Location = new System.Drawing.Point(99, 102);
             this.txCount.MaxLength = 8;
             this.txCount.Name = "txCount";
             this.txCount.Size = new System.Drawing.Size(116, 24);
@@ -265,10 +272,11 @@
             this.txPlace.BackColor = System.Drawing.Color.Bisque;
             this.txPlace.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
             this.txPlace.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.txPlace.Location = new System.Drawing.Point(99, 167);
+            this.txPlace.Location = new System.Drawing.Point(99, 132);
             this.txPlace.Name = "txPlace";
             this.txPlace.Size = new System.Drawing.Size(116, 24);
             this.txPlace.TabIndex = 66;
+            this.txPlace.TextChanged += new System.EventHandler(this.txPlace_TextChanged);
             this.txPlace.GotFocus += new System.EventHandler(this.txPlace_GotFocus);
             this.txPlace.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txPlace_KeyDown);
             this.txPlace.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txPlace_KeyUp);
@@ -276,11 +284,11 @@
             // 
             // txName
             // 
-            this.txName.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
+            this.txName.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
             this.txName.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.txName.Location = new System.Drawing.Point(7, 70);
+            this.txName.Location = new System.Drawing.Point(7, 46);
             this.txName.Name = "txName";
-            this.txName.Size = new System.Drawing.Size(209, 63);
+            this.txName.Size = new System.Drawing.Size(218, 54);
             this.txName.TextChanged += new System.EventHandler(this.txName_TextChanged);
             this.txName.ParentChanged += new System.EventHandler(this.label4_ParentChanged);
             // 
@@ -288,27 +296,19 @@
             // 
             this.txArticle.BackColor = System.Drawing.Color.Bisque;
             this.txArticle.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txArticle.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold);
+            this.txArticle.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
             this.txArticle.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.txArticle.Location = new System.Drawing.Point(72, 9);
+            this.txArticle.Location = new System.Drawing.Point(76, 7);
             this.txArticle.Name = "txArticle";
             this.txArticle.ReadOnly = true;
-            this.txArticle.Size = new System.Drawing.Size(57, 19);
+            this.txArticle.Size = new System.Drawing.Size(58, 23);
             this.txArticle.TabIndex = 64;
             this.txArticle.GotFocus += new System.EventHandler(this.txArticle_GotFocus);
-            // 
-            // lblPrice
-            // 
-            this.lblPrice.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
-            this.lblPrice.Location = new System.Drawing.Point(129, 7);
-            this.lblPrice.Name = "lblPrice";
-            this.lblPrice.Size = new System.Drawing.Size(45, 19);
-            this.lblPrice.Text = "Цена:";
             // 
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
-            this.label2.Location = new System.Drawing.Point(7, 169);
+            this.label2.Location = new System.Drawing.Point(7, 133);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(74, 19);
             this.label2.Text = "Место:";
@@ -316,9 +316,9 @@
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(7, 230);
+            this.buttonAdd.Location = new System.Drawing.Point(7, 210);
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(210, 27);
+            this.buttonAdd.Size = new System.Drawing.Size(208, 27);
             this.buttonAdd.TabIndex = 50;
             this.buttonAdd.Text = "Принять";
             this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click_1);
@@ -326,16 +326,16 @@
             // 
             // label6
             // 
-            this.label6.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
-            this.label6.Location = new System.Drawing.Point(7, 31);
+            this.label6.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
+            this.label6.Location = new System.Drawing.Point(134, 7);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(89, 20);
-            this.label6.Text = "На складе:";
+            this.label6.Size = new System.Drawing.Size(53, 20);
+            this.label6.Text = "Склад:";
             // 
             // label5
             // 
             this.label5.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
-            this.label5.Location = new System.Drawing.Point(7, 135);
+            this.label5.Location = new System.Drawing.Point(7, 104);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(74, 21);
             this.label5.Text = "Кол-во:";
@@ -343,18 +343,18 @@
             // 
             // label3
             // 
-            this.label3.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
-            this.label3.Location = new System.Drawing.Point(7, 51);
+            this.label3.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
+            this.label3.Location = new System.Drawing.Point(7, 27);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(201, 19);
-            this.label3.Text = "Наименование товара:";
+            this.label3.Size = new System.Drawing.Size(170, 19);
+            this.label3.Text = "Наим-ие товара/Цена:";
             // 
             // label1
             // 
-            this.label1.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
+            this.label1.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
             this.label1.Location = new System.Drawing.Point(7, 7);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(84, 20);
+            this.label1.Size = new System.Drawing.Size(74, 20);
             this.label1.Text = "Артикул:";
             // 
             // pSpec
@@ -363,7 +363,7 @@
             this.pSpec.Controls.Add(this.dgSpec);
             this.pSpec.Location = new System.Drawing.Point(0, 0);
             this.pSpec.Name = "pSpec";
-            this.pSpec.Size = new System.Drawing.Size(240, 267);
+            this.pSpec.Size = new System.Drawing.Size(232, 264);
             this.pSpec.Text = "Спецификация";
             // 
             // dgSpec
@@ -381,7 +381,7 @@
             this.dgSpec.RowHeadersVisible = false;
             this.dgSpec.SelectionBackColor = System.Drawing.Color.Black;
             this.dgSpec.SelectionForeColor = System.Drawing.Color.Bisque;
-            this.dgSpec.Size = new System.Drawing.Size(240, 267);
+            this.dgSpec.Size = new System.Drawing.Size(232, 264);
             this.dgSpec.TabIndex = 0;
             this.dgSpec.DoubleClick += new System.EventHandler(this.dgSpec_DoubleClick);
             this.dgSpec.CurrentCellChanged += new System.EventHandler(this.dgSpec_CurrentCellChanged);
@@ -409,7 +409,7 @@
             this.pProof.Controls.Add(this.lbarticle);
             this.pProof.Location = new System.Drawing.Point(0, 0);
             this.pProof.Name = "pProof";
-            this.pProof.Size = new System.Drawing.Size(240, 267);
+            this.pProof.Size = new System.Drawing.Size(232, 264);
             this.pProof.Text = "Проверка цен";
             // 
             // check_summ
@@ -572,10 +572,22 @@
             this.pDoc.Controls.Add(this.exit_btn);
             this.pDoc.Location = new System.Drawing.Point(0, 0);
             this.pDoc.Name = "pDoc";
-            this.pDoc.Size = new System.Drawing.Size(240, 267);
+            this.pDoc.Size = new System.Drawing.Size(232, 264);
             this.pDoc.Text = "Документ";
             this.pDoc.DoubleClick += new System.EventHandler(this.pDoc_DoubleClick);
             this.pDoc.GotFocus += new System.EventHandler(this.pDoc_GotFocus);
+            // 
+            // who_set
+            // 
+            this.who_set.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
+            this.who_set.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.who_set.Location = new System.Drawing.Point(7, 61);
+            this.who_set.Name = "who_set";
+            this.who_set.Size = new System.Drawing.Size(215, 24);
+            this.who_set.TabIndex = 10;
+            this.who_set.TextChanged += new System.EventHandler(this.who_set_TextChanged);
+            this.who_set.GotFocus += new System.EventHandler(this.who_set_GotFocus);
+            this.who_set.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.who_set_KeyPress);
             // 
             // send_btn
             // 
@@ -649,27 +661,6 @@
             this.menuItem2.Text = "удалить";
             this.menuItem2.Click += new System.EventHandler(this.menuItem2_Click);
             // 
-            // lbPlace
-            // 
-            this.lbPlace.BackColor = System.Drawing.Color.Bisque;
-            this.lbPlace.Location = new System.Drawing.Point(156, 167);
-            this.lbPlace.Name = "lbPlace";
-            this.lbPlace.Size = new System.Drawing.Size(59, 72);
-            this.lbPlace.TabIndex = 93;
-            this.lbPlace.Visible = false;
-            // 
-            // who_set
-            // 
-            this.who_set.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular);
-            this.who_set.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.who_set.Location = new System.Drawing.Point(7, 61);
-            this.who_set.Name = "who_set";
-            this.who_set.Size = new System.Drawing.Size(215, 24);
-            this.who_set.TabIndex = 10;
-            this.who_set.TextChanged += new System.EventHandler(this.who_set_TextChanged);
-            this.who_set.GotFocus += new System.EventHandler(this.who_set_GotFocus);
-            this.who_set.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.who_set_KeyPress);
-            // 
             // DataForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -707,7 +698,6 @@
         public System.Windows.Forms.PictureBox Img_Src;
         public System.Windows.Forms.Button exit_btn;
         public System.Windows.Forms.TextBox txArticle;
-        public System.Windows.Forms.Label lblPrice;
         public System.Windows.Forms.Label label2;
         public System.Windows.Forms.Button buttonAdd;
         public System.Windows.Forms.Label label6;
@@ -750,6 +740,6 @@
         public System.Windows.Forms.Label label4;
         public System.Windows.Forms.TextBox numb;
         public System.Windows.Forms.ListBox lbPlace;
-        private System.Windows.Forms.TextBox who_set;
+        public System.Windows.Forms.TextBox who_set;
     }
 }

@@ -52,6 +52,9 @@ namespace DCT
             _DataForm.txPlace.KeyDown += Tab_M3Scanner_KeyDown;
             _DataForm.txPlace.KeyUp += Tab_M3Scanner_KeyUp;
 
+            _DataForm.numb.KeyDown += Tab_M3Scanner_KeyDown;
+            _DataForm.numb.KeyUp += Tab_M3Scanner_KeyUp;
+
             _DataForm.txCount.KeyDown += Tab_M3Scanner_KeyDown;
             _DataForm.txCount.KeyUp += Tab_M3Scanner_KeyUp;
 
@@ -288,6 +291,10 @@ namespace DCT
                                 _DataForm.doc_id = myReader["id"].ToString();
                                 _DataForm.typer = myReader["type"].ToString();
                                 _DataForm.namer = myReader["name"].ToString();
+                                string[] named = myReader["name"].ToString().Split('_');
+                                _DataForm.family = named[1];
+                                _DataForm.who_set.Text = named[1].ToUpper();
+
                                 typer = myReader["type"].ToString();
                                 break;
                             }
@@ -491,6 +498,12 @@ namespace DCT
             catch
             {
                 System.Media.SystemSounds.Question.Play();
+                string updstr = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + "\\update.ini";
+                try
+                {
+                    File.Delete(updstr);
+                }
+                catch { }
                 MessageBox.Show("Ошибка! Загрузка обновления была прервана.");
                 uploader.Visible = false;
             }
