@@ -56,7 +56,7 @@ namespace DCT
             {
                 GetSpec();
             }
-            if (Page.SelectedIndex == 4)
+            if (Page.SelectedIndex == 3)
             {
                 //who_set.Text = "";
                 who_get.Text = "";
@@ -368,6 +368,30 @@ namespace DCT
         {
             input_go.Enabled = false;
             lbPlace.Visible = false;
+            if (txName.Text.Length <= 26)
+            {
+                txName.Font = new Font("Tahoma", 18, FontStyle.Bold);
+            }
+            if (txName.Text.Length > 26 && txName.Text.Length <= 30)
+            {
+                txName.Font = new Font("Tahoma", 16, FontStyle.Bold);
+            }
+            if (txName.Text.Length > 30 && txName.Text.Length <= 34)
+            {
+                txName.Font = new Font("Tahoma", 14, FontStyle.Bold);
+            }
+            if (txName.Text.Length > 34 && txName.Text.Length <= 66)
+            {
+                txName.Font = new Font("Tahoma", 11, FontStyle.Bold);
+            }
+            if (txName.Text.Length > 66 && txName.Text.Length <= 80)
+            {
+                txName.Font = new Font("Tahoma", 9, FontStyle.Bold);
+            }
+            if (txName.Text.Length > 80)
+            {
+                txName.Font = new Font("Tahoma", 8, FontStyle.Bold);
+            }
         }
 
         private void pGetting_Click(object sender, EventArgs e)
@@ -759,17 +783,17 @@ namespace DCT
                     if (ext_find == false)
                     {
                         System.Media.SystemSounds.Exclamation.Play();
-                        Page.SelectedIndex = 3;
+                        Page.SelectedIndex = 4;
                     }
                     else
                     {
                         System.Media.SystemSounds.Hand.Play();
-                        Page.SelectedIndex = 3;
+                        Page.SelectedIndex = 4;
                     }
                 }
                 catch
                 {
-                    Page.SelectedIndex = 3;
+                    Page.SelectedIndex = 4;
                 }
             }
         }
@@ -1009,6 +1033,7 @@ namespace DCT
                     while (myReader.Read())
                     {
                         txArticle.Text = myReader["article"].ToString();
+                        tBarcode.Text = myReader["barcode"].ToString();
                         txName.Text = myReader["name"].ToString();
                         txPlace.Text = myReader["place"].ToString();
                         lbPlace.Items.Clear();

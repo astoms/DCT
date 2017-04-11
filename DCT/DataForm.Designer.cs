@@ -96,8 +96,8 @@
             this.Page.Controls.Add(this.pBarcode);
             this.Page.Controls.Add(this.pGetting);
             this.Page.Controls.Add(this.pSpec);
-            this.Page.Controls.Add(this.pProof);
             this.Page.Controls.Add(this.pDoc);
+            this.Page.Controls.Add(this.pProof);
             this.Page.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Page.Location = new System.Drawing.Point(0, 0);
             this.Page.Name = "Page";
@@ -245,7 +245,7 @@
             this.txMesname.BackColor = System.Drawing.Color.Bisque;
             this.txMesname.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txMesname.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.txMesname.Location = new System.Drawing.Point(183, 104);
+            this.txMesname.Location = new System.Drawing.Point(187, 104);
             this.txMesname.Name = "txMesname";
             this.txMesname.ReadOnly = true;
             this.txMesname.Size = new System.Drawing.Size(25, 21);
@@ -284,7 +284,7 @@
             // 
             // txName
             // 
-            this.txName.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold);
+            this.txName.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
             this.txName.ForeColor = System.Drawing.SystemColors.Highlight;
             this.txName.Location = new System.Drawing.Point(7, 46);
             this.txName.Name = "txName";

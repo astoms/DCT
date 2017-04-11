@@ -310,7 +310,7 @@ namespace DCT
                     {
                         _DataForm.Page.SelectedIndex = 0;
                     }
-                    else _DataForm.Page.SelectedIndex = 3;
+                    else _DataForm.Page.SelectedIndex = 4;
                     this.Hide();
                 }
             }
@@ -584,7 +584,7 @@ namespace DCT
                         _DataForm.tBarcode.Text = e.ScanData;
                         _DataForm.FindBarcode(e.ScanData);
                     }
-                    if (_DataForm.Page.SelectedIndex == 3)
+                    if (_DataForm.Page.SelectedIndex == 4)
                     {
                         _DataForm.FindPricer(e.ScanData);
                     }
@@ -609,7 +609,7 @@ namespace DCT
                         _DataForm.tBarcode.Text = e.ScanData;
                         _DataForm.FindBarcode(e.ScanData);
                     }
-                    if (_DataForm.Page.SelectedIndex == 3)
+                    if (_DataForm.Page.SelectedIndex == 4)
                     {
                         _DataForm.FindPricer(e.ScanData);
                     }
